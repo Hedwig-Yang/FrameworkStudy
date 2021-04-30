@@ -1,0 +1,20 @@
+1、创建Web工程，导入核心的jar包.
+2、在web.xml中配置SpringMVC的前端控制器：DispatcherServlet
+3、配置SpringMVC的核心配置文件：springmvc.xml
+4、编写请求处理器
+5、浏览器中发送请求，请求处理器中处理请求
+
+
+Springmvc HelloWorld 执行流程:
+    1. 启动 Tomcat 服务器, 会加载 DispatcherServlet， 然后就会读取 springmvc.xml,
+       进而创建好Springmvc 容器对象. 创建 Springmvc 容器对象: 组件通过@Controller
+       扫描会扫描到请求处理器，以及请求处理中@RequestMapping 注解，能得到具体的请求
+       与请求处理器中方法的映射。
+    2. 客户端发送请求: http://localhost:8888/Springmvc01/hello
+    3. 请求到达 web.xml 中与<url-pattern>进行匹配， 匹配成功，就将请求交给
+       DispatcherServlet
+    4. DispatcherServlet 根据请求与请求处理方法的映射，找到具体的请求处理器中的
+       请求处理方法（分发请求）并执行，来处理请求。
+    5. 请求处理方法处理完请求， 最终方法会返回一个字符串
+    6. 视图解析器根据请求处理方法返回的结果， prefix + returnValue + suffix, 解析生成
+       具体的物理视图路径， 再通过转发的方式去往视图

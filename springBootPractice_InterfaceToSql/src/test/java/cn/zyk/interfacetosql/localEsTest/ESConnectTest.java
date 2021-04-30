@@ -88,6 +88,7 @@ public class ESConnectTest {
         }
         return null;
     }
+
     @Test
     public void getUsingAccountingId() {
         try {
