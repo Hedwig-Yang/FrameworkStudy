@@ -34,6 +34,40 @@
     <form action = "testRequestMappingMethod" method="post">
       <input type="submit" value="POST"/>
     </form>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h/>
+
+
+
+
+    <!--Rest POST 增加一个新的订单-->
+    <form action = "order" method="post">
+      <input type="submit" value="REST POST"/>
+    </form>
+
+    <br>
+    <!--Rest POST 删除id为1001的订单-->
+    <form action = "order/1001" method="post">
+      <!--隐藏域-->
+      <input type="hidden" name="_method" value="DELETE"/>
+      <input type="submit" value="REST DELETE"/>
+    </form>
+
+    <br>
+    <!--Rest POST 修改一个订单-->
+    <form action = "order" method="post">
+      <input type="hidden" name="_method" value="PUT"/>
+      <input type="submit" value="REST PUT"/>
+    </form>
+
+    <br>
+    <!--Rest Get 查询id为1001的订单-->
+    <a href="order/1001">REST GET</a>
+
+
 
 
   </body>
@@ -41,4 +75,6 @@
 
 <!--
   注意：超链接默认使用GET请求方式
+由于超链接默认使用GET请求，为了能够发DELETE请求，需要使用form表单提交POST请求，经过过滤器HiddenHttpMethodFilter，获取设定的paramValue参数，将POST请求转化为Delete请求
+
 -->

@@ -11,6 +11,17 @@
     -->
 
 
+    <!--配置REST 过滤器 HiddenHttpMethodFilter-->
+    <filter>
+        <filter-name>HiddenHttpMethodFilter</filter-name>
+        <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>HiddenHttpMethodFilter</filter-name>
+        <!--过滤处理所有的请求-->
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
 
 
 
@@ -35,9 +46,10 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
-
-
-
-
-
 </web-app>
+
+<!--HiddenHttpMethodFilter:
+浏览器 form 表单只支持 GET 与 POST 请求，而DELETE、PUT 等 method 并不
+支持，Spring3.0 添加了一个过滤器，可以将这些请求转换为标准的 http 方法，使
+得支持 GET、POST、PUT 与 DELETE 请求
+-->
