@@ -11,7 +11,12 @@
     -->
 
 
-    <!--配置REST 过滤器 HiddenHttpMethodFilter-->
+    <!--配置REST 过滤器 HiddenHttpMethodFilter
+        将满足转换条件的请求进行转换
+        1、必须是POST请求
+        2、必须能通过_method获取到一个请求参数值（要转换成的请求方式）
+
+    -->
     <filter>
         <filter-name>HiddenHttpMethodFilter</filter-name>
         <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>

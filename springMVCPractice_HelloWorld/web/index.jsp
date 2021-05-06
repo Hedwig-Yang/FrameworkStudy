@@ -34,11 +34,11 @@
     <form action = "testRequestMappingMethod" method="post">
       <input type="submit" value="POST"/>
     </form>
+    <hr color="blue" width="60%" align="left" style="height: 5px"/>
     <br>
     <br>
     <br>
     <br>
-    <h/>
 
 
 
@@ -66,7 +66,24 @@
     <br>
     <!--Rest Get 查询id为1001的订单-->
     <a href="order/1001">REST GET</a>
+    <hr color="blue" width="60%" align="left" style="height: 5px"/>
+    <br>
+    <br>
+    <br>
+    <br>
 
+
+
+    <!--测试标签：@RequestParam,获取请求参数-->
+    <a href="testRequestParam?username=Tom&age=22">Test RequestParam</a>
+    <hr color="blue" width="60%" align="left" style="height: 5px"/>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <!--测试标签@RequestHeader,获取请求头信息-->
+    <a href="testRequestHeader">Test RequestHeader</a>
 
 
 
@@ -75,6 +92,7 @@
 
 <!--
   注意：超链接默认使用GET请求方式
-由于超链接默认使用GET请求，为了能够发DELETE请求，需要使用form表单提交POST请求，经过过滤器HiddenHttpMethodFilter，获取设定的paramValue参数，将POST请求转化为Delete请求
-
+  由于超链接默认使用GET请求，为了能够发DELETE请求，需要使用form表单提交POST请求，
+  经过过滤器HiddenHttpMethodFilter，获取设定的paramValue参数，将POST请求转化为Delete请求
+  同理发送PUT请求，
 -->
