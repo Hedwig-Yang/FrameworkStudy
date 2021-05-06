@@ -45,16 +45,6 @@ public class SpringMVCRequestHandler {
         return "success";
     }
 
-    /**
-     * 测试带占位符的URL
-     *浏览器请求URL：http://localhost:8080/springMVCPractice_HelloWorld/testPathVariable/admin/1001
-     */
-    @RequestMapping(value = "/testPathVariable/{name}/{id}")
-    public String testPathVariable(@PathVariable("name")String name, @PathVariable("id")Integer id){
-        System.out.println(name+":"+id);
-        return "success";
-    }
-
 
 
 }

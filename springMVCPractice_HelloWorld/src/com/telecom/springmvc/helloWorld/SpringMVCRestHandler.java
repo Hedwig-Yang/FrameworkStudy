@@ -14,6 +14,18 @@ import org.springframework.web.bind.annotation.*;
 public class SpringMVCRestHandler {
 
     /**
+     * 测试REST风格传值方式：带占位符的URL
+     *浏览器请求URL：http://localhost:8080/springMVCPractice_HelloWorld/testPathVariable/admin/1001
+     */
+    @RequestMapping(value = "/testPathVariable/{name}/{id}")
+    public String testPathVariable(@PathVariable("name")String name, @PathVariable("id")Integer id){
+        System.out.println(name+":"+id);
+        return "success";
+    }
+
+
+
+    /**
      * REST POST 增加
      */
     @RequestMapping(value = "/order",method = RequestMethod.POST)

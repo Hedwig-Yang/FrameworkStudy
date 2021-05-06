@@ -22,6 +22,7 @@ import java.io.IOException;
 @Controller
 public class SpringMVCOtherHandler {
 
+
     /**
      * 测试标签@requestParam(映射请求参数到请求方法的形参)，获取请求参数
      * 1、如果请求参数名和形参名一致，则可以省略@RequestParam的指定
