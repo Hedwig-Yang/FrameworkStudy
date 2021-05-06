@@ -19,7 +19,7 @@ public class SpringMVCRestHandler {
      */
     @RequestMapping(value = "/testPathVariable/{name}/{id}")
     public String testPathVariable(@PathVariable("name")String name, @PathVariable("id")Integer id){
-        System.out.println(name+":"+id);
+        System.out.println("REST风格传值方式  "+name+":"+id);
         return "success";
     }
 
