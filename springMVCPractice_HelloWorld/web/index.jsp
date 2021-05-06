@@ -76,14 +76,53 @@
 
     <!--测试标签：@RequestParam,获取请求参数-->
     <a href="testRequestParam?username=Tom&age=22">Test RequestParam</a>
+    <br>
+    <br>
+
+    <!--测试标签@RequestHeader,获取请求头信息-->
+    <a href="testRequestHeader">Test RequestHeader</a>
+    <br>
+    <br>
+
+    <!--测试标签@CookieValue,获取cookie中的参数-->
+    <a href="testCookieValue">Test CookieValue</a>
     <hr color="blue" width="60%" align="left" style="height: 5px"/>
     <br>
     <br>
     <br>
     <br>
 
-    <!--测试标签@RequestHeader,获取请求头信息-->
-    <a href="testRequestHeader">Test RequestHeader</a>
+
+    <!--模拟注册操作，测试POJO对象接收请求参数
+        要求：1、请求参数名称和POJO属性名称一致；2、POJO对象必须提供set方法
+    -->
+  <form action="testPOJO" method="post">
+    用户名称：<input type="text" name="username"/>
+    <br>
+    用户密码：<input type="password" name="password"/>
+    <br>
+    用户邮箱：<input type="text" name="email"/>
+    <br>
+    用户性别：男<input type="radio" name="gender" value="1"/>
+             女<input type="radio" name="gender" value="0"/>
+    <br>
+    <!--支持级联-->
+    用户省份：<input type="text" name="address.provice"/>
+    用户城市：<input type="text" name="address.city"/>
+    <br>
+    <input type="submit" value="注册"/>
+  </form>
+
+    <hr color="blue" width="60%" align="left" style="height: 5px"/>
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+  <!--测试在SpringMVC中使用原生ServletAPI-->
+  <a href="testServletAPI">Test Servlet API</a>
+
 
 
 
