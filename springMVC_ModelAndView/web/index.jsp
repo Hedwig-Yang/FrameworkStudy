@@ -11,5 +11,20 @@
   </head>
   <body>
       <a href="testModelAndView">Test ModelAndView</a>
+      <br>
+      <br>
+      <br>
+      <br>
+      <a href="testMap">Test Map</a>
+      <br>
+      <br>
+      <br>
+      <br>
+      <a href="testModel">Test Model</a>
+
+
+      <hr color="blue" width="60%" align="left" style="height: 5px"/>
+      <br>
+      <br>
   </body>
 </html>

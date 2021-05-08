@@ -16,5 +16,11 @@
         EL表达式支持级联的方式从指定的域对象中获取数据
     -->
     username:${requestScope.username}
+    <br>
+    <br>
+    password:${requestScope.password}
+    <br>
+    <br>
+    loginMsg:${requestScope.loginMsg}
 </body>
 </html>
