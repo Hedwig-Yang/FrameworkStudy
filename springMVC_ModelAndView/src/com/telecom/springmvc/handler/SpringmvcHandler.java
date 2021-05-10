@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * @Author:KUN
  * @Data:2021/5/7 15:33
- * @Description: 学习并测试ModelAndView
+ * @Description: 学习并测试处理模型数据
  * @Version:1.0
  */
 @Controller
@@ -59,6 +59,28 @@ public class SpringmvcHandler {
         return "success";
     }
 
+    /**
+     * 测试视图解析器
+     */
+    @RequestMapping("/testView")
+    public String testView(){
+        /*视图的作用是渲染模型数据，将模型里的数据以某种形式呈现给客户,同时实现转发或重定向。
+        * 视图解析器的作用比较单一：将逻辑视图(视图名称)解析为一个具体的视图对象。
+        */
+        return "success";
+    }
+
+    /**
+     * 测试重定向
+     * 在返回值前加上"redirect:"的字符串，就可以实现重定向
+     * 在返回值前加上"forward:"的字符串，就可以实现转发
+     */
+    @RequestMapping("/testRedirectView")
+    public String testRedirectView(){
+        //重定向的时候是不经过视图解析器的，因此无法拼接路径，需要自己提供jsp文件路径
+        //return "redirect:ok.jsp";
+        return "forward:ok.jsp";
+    }
 
 
 
