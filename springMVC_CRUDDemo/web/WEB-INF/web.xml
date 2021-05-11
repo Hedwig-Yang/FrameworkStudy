@@ -6,15 +6,16 @@
 
 
     <!--
-    1.tomcat服务器启动 -> 2.通过web.xml加载DispatcherServlet ->
-    3.读取初始化参数springmvc.xml -> 4.通过springmvc.xml创建springmvc的容器
+        1.tomcat服务器启动 -> 2.通过web.xml加载DispatcherServlet ->
+        3.读取初始化参数springmvc.xml -> 4.通过springmvc.xml创建springmvc的容器
     -->
+
 
 
     <!--配置REST 过滤器 HiddenHttpMethodFilter
         将满足转换条件的请求进行转换
-        1、必须是POST请求
-        2、必须能通过_method获取到一个请求参数值（要转换成的请求方式）
+         1、必须是POST请求
+         2、必须能通过_method获取到一个请求参数值（要转换成的请求方式）
     -->
     <filter>
         <filter-name>HiddenHttpMethodFilter</filter-name>
@@ -25,8 +26,6 @@
         <!--过滤处理所有的请求-->
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
-
 
 
     <!-- Springmvc的前端控制器：DispatcherServlet -->
@@ -46,7 +45,6 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
-
     <!-- 指定请求映射url -->
     <servlet-mapping>
         <servlet-name>springDespatcherServlet</servlet-name>
@@ -54,10 +52,6 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
-</web-app>
 
-<!--HiddenHttpMethodFilter:
-浏览器 form 表单只支持 GET 与 POST 请求，而DELETE、PUT 等 method 并不
-支持，Spring3.0 添加了一个过滤器，可以将这些请求转换为标准的 http 方法，使
-得支持 GET、POST、PUT 与 DELETE 请求
--->
+
+</web-app>
