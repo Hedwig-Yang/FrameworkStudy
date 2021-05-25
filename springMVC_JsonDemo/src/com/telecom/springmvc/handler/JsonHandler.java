@@ -96,12 +96,13 @@ public class JsonHandler {
                             HttpSession session) throws Exception {
         //获取上传文件名
         String uploadFileName = uploadFile.getOriginalFilename();
-        //获取输入流
-        InputStream in = uploadFile.getInputStream();
-        //获取服务器端的uploads文件夹的真是路径
+        //获取服务器端的uploads文件夹的真实路径
         ServletContext sc = session.getServletContext();
         String realPath = sc.getRealPath("uploads");
         File targetFile = new File(realPath + "/" + uploadFileName);
+        /*传统方法：
+        //获取输入流
+        InputStream in = uploadFile.getInputStream();
         //获取输出流
         FileOutputStream os = new FileOutputStream(targetFile);
         //从输入流读取数据，然后再用输出流写入文件
@@ -110,7 +111,10 @@ public class JsonHandler {
             os.write(i);
         }
         in.close();
-        os.close();
+        os.close();*/
+
+        //MultipartFile提供的文件上传的方法
+        uploadFile.transferTo(targetFile);
 
         return "success";
 

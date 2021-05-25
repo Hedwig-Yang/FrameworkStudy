@@ -42,5 +42,22 @@
     </bean>
 
 
+    <!-- 配置拦截器 -->
+    <mvc:interceptors>
+        <!--1、拦截所有请求-->
+        <bean class="com.telecom.springmvc.interceptor.MyFirstInterceptor"/>
+        <!-- 如果拦截器添加了注解@Component,可以简写为：<ref bean="MyFirstInterceptor"/>-->
+        
+        <!--2、指定拦截或者指定不拦截-->
+        <!--<mvc:interceptor>
+            <bean class="com.telecom.springmvc.interceptor.MyFirstInterceptor"/>
+            &lt;!&ndash;指定拦截&ndash;&gt;
+            <mvc:mapping path="/emps"/>
+            &lt;!&ndash;指定不拦截&ndash;&gt;
+            <mvc:exclude-mapping path="/emps"/>
+        </mvc:interceptor>-->
+    </mvc:interceptors>
+
+
 
 </beans>
