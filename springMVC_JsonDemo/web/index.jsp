@@ -27,6 +27,17 @@
     <br/>
     <br/>
 
+    <!-- 实现文件上传必须使用form表单，必须是post请求 -->
+    <form action="upload" method="post" enctype="multipart/form-data">
+      <br/>
+        上传文件:<input type="file" name="uploadFile"/>
+      <br/>
+        文件描述:<input type="text" name="desc"/>
+      <br/>
+        <input type="submit" value="上传"/>
+    </form>
+
+
     <!-- HttpMessageConverter_ResponseEntity完成下载操作 -->
     <a href="download">下载图片</a>
   </body>

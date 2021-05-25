@@ -31,4 +31,16 @@
 		配置了default-serlvet-handler后，RequestMapping的映射会失效，需要加上annotation-driven的配置。
 	 -->
 
+    <!-- 配置文件的上传
+    该bean的id值必须是multipartResolver，因为SpringMVC底层会通过该名字到容器中找对应的bean
+    -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 设置默认编码：保证与上传表单所在的Jsp页面的编码保持一致 -->
+        <property name="defaultEncoding" value="utf-8"/>
+        <!-- 设置上传文件大小限制（单位：字节 byte） -->
+        <property name="maxUploadSize" value="10485760"/>
+    </bean>
+
+
+
 </beans>

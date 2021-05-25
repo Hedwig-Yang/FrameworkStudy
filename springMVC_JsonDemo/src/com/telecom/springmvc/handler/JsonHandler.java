@@ -9,10 +9,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 
@@ -49,7 +55,7 @@ public class JsonHandler {
     }
 
     /**
-     * 使用HttpMessageConveter完成下载功能
+     * 使用HttpMessageConveter完成文件下载功能
      * 支持@RequestBody、@ResponseBody、HttpEntity、ResponseEntity
      * 下载原理：将服务器端的文件以流的形式写到客户端。
      * ResponseEntity：将要下载的文件以及相应星系封装到ResponseEntity对象中，浏览器通过解析
@@ -78,6 +84,35 @@ public class JsonHandler {
         HttpStatus statusCode = HttpStatus.OK; //200
         ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(body, headers, statusCode);
         return responseEntity;
+    }
+
+    /**
+     * 文件的上传
+     * 上传原理：将本地的文件上传到服务器
+     */
+    @RequestMapping(value = "/upload",method = RequestMethod.POST)
+    public String testUpload(@RequestParam("desc")String desc,
+                             @RequestParam("uploadFile") MultipartFile uploadFile,
+                            HttpSession session) throws Exception {
+        //获取上传文件名
+        String uploadFileName = uploadFile.getOriginalFilename();
+        //获取输入流
+        InputStream in = uploadFile.getInputStream();
+        //获取服务器端的uploads文件夹的真是路径
+        ServletContext sc = session.getServletContext();
+        String realPath = sc.getRealPath("uploads");
+        File targetFile = new File(realPath + "/" + uploadFileName);
+        //获取输出流
+        FileOutputStream os = new FileOutputStream(targetFile);
+        //从输入流读取数据，然后再用输出流写入文件
+        int i;
+        while((i = in.read())!=-1){
+            os.write(i);
+        }
+        in.close();
+        os.close();
+
+        return "success";
 
     }
 
