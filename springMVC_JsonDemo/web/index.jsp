@@ -36,9 +36,13 @@
       <br/>
         <input type="submit" value="上传"/>
     </form>
-
+    <br/>
 
     <!-- HttpMessageConverter_ResponseEntity完成下载操作 -->
     <a href="download">下载图片</a>
+    <br/>
+    <br/>
+    <!-- 测试拦截器 -->
+    <a href="testInterceptor">Test Interceptor</a>
   </body>
 </html>

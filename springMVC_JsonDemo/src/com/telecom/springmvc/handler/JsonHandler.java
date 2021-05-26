@@ -25,7 +25,7 @@ import java.util.Collection;
 /**
  * @Author:KUN
  * @Data:2021/5/21 18:12
- * @Description: 测试SpringMVC处理JSON数据
+ * @Description: 测试SpringMVC处理JSON数据、测试拦截器执行顺序
  * @Version:1.0
  */
 
@@ -117,7 +117,14 @@ public class JsonHandler {
         uploadFile.transferTo(targetFile);
 
         return "success";
+    }
 
+    /**
+     * 测试拦截器
+     */
+    @RequestMapping(value = "/testInterceptor")
+    public String testInterceptor(){
+        return "success";
     }
 
 
