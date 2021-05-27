@@ -7,7 +7,7 @@
 
 
     <!-- 1、组件扫描 springmvc全程基于注解开发 -->
-    <context:component-scan base-package="com.telecom.springmvc"></context:component-scan>
+    <context:component-scan base-package="com.telecom.MvcCombineSpring"></context:component-scan>
 
     <!-- 2、视图解析器
          工作机制：prefix + 请求处理方法的返回值 +suffix = 物理路径
@@ -41,24 +41,6 @@
         <property name="maxUploadSize" value="10485760"/>
     </bean>
 
-
-    <!-- 配置拦截器 -->
-    <mvc:interceptors>
-        <!--1、拦截所有请求-->
-        <bean class="com.telecom.springmvc.interceptor.MyFirstInterceptor"/>
-        <!-- 如果拦截器添加了注解@Component,可以简写为：<ref bean="MyFirstInterceptor"/>-->
-        <bean class="com.telecom.springmvc.interceptor.MySecondInterceptor"/>
-        <!--多个拦截器时，拦截器执行顺序与配置顺序相关，先配置先执行-->
-        
-        <!--2、指定拦截或者指定不拦截-->
-        <!--<mvc:interceptor>
-            <bean class="com.telecom.springmvc.interceptor.MyFirstInterceptor"/>
-            &lt;!&ndash;指定拦截&ndash;&gt;
-            <mvc:mapping path="/emps"/>
-            &lt;!&ndash;指定不拦截&ndash;&gt;
-            <mvc:exclude-mapping path="/emps"/>
-        </mvc:interceptor>-->
-    </mvc:interceptors>
 
 
 
