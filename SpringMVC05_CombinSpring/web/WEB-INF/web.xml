@@ -4,19 +4,34 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
-    <!-- 配置Servlet -->
-    <servlet>
+    <!-- 配置Servlet
+        可以使用注解配置：@WebServlet(name = "/HelloServlet")
+    -->
+<!--    <servlet>
         <servlet-name>HelloServlet</servlet-name>
         <servlet-class>com.telecom.MvcCombineSpring.servlet.HelloServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HelloServlet</servlet-name>
         <url-pattern>/HelloServlet</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
 
-    <!-- 配置Listener -->
-    <listener>
+
+    <!-- 配置Listener
+        可以使用注解配置：@WebListener()
+    -->
+    <!--<listener>
         <listener-class>com.telecom.MvcCombineSpring.listener.MyServletContextListener</listener-class>
+    </listener>-->
+
+
+    <!-- 初始化SpringIOC容器的监听器 -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:applicationContext.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
 </web-app>

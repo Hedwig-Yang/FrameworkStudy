@@ -13,7 +13,8 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 
-@WebListener()
+//@WebListener()
+//注释掉自建的监听器，测试使用SpringIOC容器自带的监听器见web.xml配置
 public class MyServletContextListener implements ServletContextListener{
 
     public MyServletContextListener() {
@@ -29,6 +30,7 @@ public class MyServletContextListener implements ServletContextListener{
         //将SpringIOC容器对象绑定到ServletContext中
         ServletContext sc = sce.getServletContext();
         sc.setAttribute("applicationContext",ctx);
+        System.out.println("起作用了*************************");
     }
 
     public void contextDestroyed(ServletContextEvent sce) {

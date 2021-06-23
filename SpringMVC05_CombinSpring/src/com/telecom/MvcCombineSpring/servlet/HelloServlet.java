@@ -17,19 +17,19 @@ import java.io.IOException;
  * @Description: 创建Servlet。（SpringMVC的Handle底层也就是Servlet）
  * @Version:1.0
  */
-@WebServlet(name = "HelloServlet")
+@WebServlet("/HelloServlet")
 public class HelloServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //访问SpringIOC容器中的person对象
-        //从ServletContext对象中获取SpringIOC容器对象
-        ServletContext sc = getServletContext();
-        ApplicationContext ctx = (ApplicationContext)sc.getAttribute("ApplicationContext");
-        Person person = ctx.getBean("person", Person.class);
-        person.sayHello();
+        doGet(request,response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request,response);
+        //访问SpringIOC容器中的person对象
+        //从ServletContext对象中获取SpringIOC容器对象
+        ServletContext sc = getServletContext();
+        ApplicationContext ctx = (ApplicationContext)sc.getAttribute("applicationContext");
+        Person person = ctx.getBean("person", Person.class);
+        person.sayHello();
     }
 }
 
