@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
         <!--Spring的配置文件-->
     <bean id="person" class="com.telecom.MvcCombineSpring.beans.Person">
         <property name="name" value="Spring+SpringMVC"/>
     </bean>
+
+    <!-- 组件扫描 将对象添加到IOC容器进行管理 -->
+    <context:component-scan base-package="com.telecom.MvcCombineSpring">
+        <!-- 配置排除扫描，将Controller排除在IOC容器外，交给MVC容器管理 -->
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 
 
 </beans>

@@ -3,7 +3,7 @@ package com.atguigu.springpractice1.helloWorld;
 /**
  * @Author:KUN
  * @Data:2021/4/15 15:01
- * @Description: TODO
+ * @Description: 基本类
  * @Version:1.0
  */
 public class Person {

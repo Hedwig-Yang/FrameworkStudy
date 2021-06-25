@@ -7,7 +7,10 @@
 
 
     <!-- 1、组件扫描 springmvc全程基于注解开发 -->
-    <context:component-scan base-package="com.telecom.MvcCombineSpring"></context:component-scan>
+    <context:component-scan base-package="com.telecom.MvcCombineSpring" use-default-filters="false">
+        <!-- 配置指定扫描，只管理Controller类，其他的类交给IOC容器管理 -->
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 
     <!-- 2、视图解析器
          工作机制：prefix + 请求处理方法的返回值 +suffix = 物理路径

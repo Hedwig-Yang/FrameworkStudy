@@ -57,8 +57,7 @@
         <!--设置DespatcherServlet创建时机：
                 默认在请求到达后创建，通过标签<load-on-startup>可设置在Tomcat启动过程时创建
             存在多个DespatcherServlet时设置的启动优先级：
-                标签<load-on-startup>的数字用于设置优先级的大小
-        -->
+                标签<load-on-startup>的数字用于设置优先级的大小-->
         <load-on-startup>1</load-on-startup>
     </servlet>
 
