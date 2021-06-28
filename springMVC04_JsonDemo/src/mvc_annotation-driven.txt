@@ -7,7 +7,7 @@
 	启动一些新的组件对象替换原先旧的组件对象， 从而实现一些新的，更强大的功能
 
 
-解释: <mvc:default-servlet-handler>①   为什么还要配置<mvc:annotation-driven> ②？
+解释: ① <mvc:default-servlet-handler>   为什么还要配置 ② <mvc:annotation-driven> ？
 
    ①  ② 都没有配置的情况(无法处理无映射请求): DispatcherServlet 中handlerAdapters中装配:
    HttpRequestHandlerAdapter

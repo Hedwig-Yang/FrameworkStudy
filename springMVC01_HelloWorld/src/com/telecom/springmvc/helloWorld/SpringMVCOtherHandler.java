@@ -27,7 +27,7 @@ public class SpringMVCOtherHandler {
      * 测试标签@requestParam(映射请求参数到请求方法的形参)，获取请求参数
      * 1、如果请求参数名和形参名一致，则可以省略@RequestParam的指定
      * 2、@RequestParam标注的形参必须要赋值，必须要能从请求对象中获取到对应的请求参数
-     *    可以使用equired来设置为不是必须的
+     *    可以使用required来设置为不是必须的
      * 3、可以通过defaultValue来指定一个默认值取代null
      *
      * 客户端请求：testRequestParam?username=Tom&age=22
@@ -53,6 +53,7 @@ public class SpringMVCOtherHandler {
 
     /**
      * 测试标签：@CookieValue, 映射cookie信息到请求方法的形参中
+     * 这里发现与服务器建立连接后创建session，然后自动在cookie中存放sessionId
      */
     @RequestMapping("/testCookieValue")
     public String testCookieValue(@CookieValue("JSESSIONID")String sessionId){

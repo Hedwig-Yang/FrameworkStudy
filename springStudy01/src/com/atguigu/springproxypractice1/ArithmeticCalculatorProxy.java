@@ -67,7 +67,7 @@ class $Proxy0 extends Proxy implements ArithmeticCaculator{
     }
 
     @Override
-    public int add(int i, int j)  {
+    public int add(int i, int j) {
         Object[] args = {i,j};
         int result = 0;
         try {
@@ -104,7 +104,7 @@ class $Proxy0 extends Proxy implements ArithmeticCaculator{
 /*总结：动态代理的实现
             通过Proxy.newProxyInstance(loader,interfaces,h)方法获取代理类对象，传入类加载器（用
         于加载类）、原始类实现的接口（用于获取原始类中需要代理的方法）以及InvocationHandler的实现类
-        对象h（用于实现代理方法。
+        对象h（用于实现代理方法）。
             创建的代理类，通过唯一的有参构造，将InvocationHandler的实现类对象h传递给父类Proxy，当
         调用代理类中的方法，比如add方法，本质是调用父类Proxy的InvocationHandler的实现类对象h的invoke
         方法：(int)super.h.invoke(this,interfaceAdd,args)，通过传入参数：this（代理类对象，一般

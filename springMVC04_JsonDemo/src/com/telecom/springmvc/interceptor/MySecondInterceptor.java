@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @Author:KUN
  * @Data:2021/5/25 17:49
- * @Description: 测试拦截器（取别于过滤器在Springmvc的前端控制器：DispatcherServlet之前执行，拦截器在之后执行）
+ * @Description: 测试拦截器（区别于过滤器在Springmvc的前端控制器：DispatcherServlet之前执行，拦截器在之后执行）
  * @Version:1.0
  */
 //@Component

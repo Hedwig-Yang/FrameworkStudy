@@ -14,6 +14,7 @@ public class User {
     private Date birthday;
     private String sex;
     private String address;
+
     public User() {
     }
 
@@ -77,6 +78,6 @@ public class User {
     }
 }
 /* java.sql.Date和java.util.Date区别及使用
- * java.util.Date 是 java.sql.Date 的父类（注意拼写） 前者是常用的表示时间的类，我们通常格式化或者得到当前时间都是用他
- * “规范化”的java.sql.Date只包含年月日信息，时分秒毫秒都会清零。格式类似：YYYY-MM-DD。
+ * java.util.Date 是 java.sql.Date 的父类（注意拼写） 前者是常用的表示时间的类，我们通常格式化或者
+ * 得到当前时间都是用他“规范化”的java.sql.Date只包含年月日信息，时分秒毫秒都会清零。格式类似：YYYY-MM-DD。
  */

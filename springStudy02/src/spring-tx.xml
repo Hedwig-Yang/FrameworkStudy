@@ -46,3 +46,6 @@
     <tx:annotation-driven transaction-manager="dataSourceTransactionManager"/>
 
 </beans>
+
+
+<!-- 配置Spring的事务管理 -->
