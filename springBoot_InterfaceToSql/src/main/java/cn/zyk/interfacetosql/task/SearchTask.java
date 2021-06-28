@@ -26,7 +26,7 @@ public class SearchTask {
 
 
 
-    @Scheduled(cron = "0/5 * * * * ?")
+    //@Scheduled(cron = "0/5 * * * * ?")
     public void getFristInf(){
         List<User> users = userMapper.findAll();
         System.out.println(users.toArray()[0].toString());

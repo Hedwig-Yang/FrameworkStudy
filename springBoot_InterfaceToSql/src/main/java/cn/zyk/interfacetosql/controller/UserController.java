@@ -2,6 +2,7 @@ package cn.zyk.interfacetosql.controller;
 
 import cn.zyk.interfacetosql.entity.User;
 import cn.zyk.interfacetosql.mapper.UserMapper;
+import cn.zyk.interfacetosql.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -24,12 +25,11 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    UserMapper userMapper;
+    UserService userService;
 
     @RequestMapping("/user")
     public String getUsers(Model model){
-        List<User> users = userMapper.findAll();
-
+        List<User> users = userService.getUsers();
         model.addAttribute("users",users);
         System.out.println("Coming");
         return "user";
