@@ -39,5 +39,4 @@ public class xxlJobHandlerTest {
         }
         // default success
     }
-
 }

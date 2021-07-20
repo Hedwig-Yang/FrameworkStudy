@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 配置SQL映射
+	 namespace: 名称空间. 此时Mapper接口开发，不能随便写，按照Mapper接口名称来写。
+ -->
+<mapper namespace="com.atguigu.mybatis.dao.AccountDao">
+
+    <!--
+        <select>: 定义查询语句
+            id:  <select>的唯一标识
+            resultType:  结果集的映射类型。
+            #{isbn}: 获取参数值
+     -->
+    <select id="getBalanceByUsername" resultType="com.atguigu.mybatis.beans.Account">
+        select * from account where username = #{username}
+    </select>
+
+
+
+</mapper>

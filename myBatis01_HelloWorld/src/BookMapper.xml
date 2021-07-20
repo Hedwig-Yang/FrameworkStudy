@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 配置SQL映射 
+	 namespace: 名称空间. 
+	 		1. 随便写
+	 		2. Mapper接口开发，不能随便写，按照规定来写。
+ -->
+<mapper namespace="suibian">
+
+	<!-- 
+		<select>: 定义查询语句
+			id:  <select>的唯一标识
+			resultType:  结果集的映射类型。
+			#{isbn}: 获取参数值
+	 -->
+	<select id="selectBook" resultType="com.atguigu.mybatis.beans.Book">
+		<!-- select * from book where isbn = #{isbn} -->
+		<!-- 为满足驼峰命名与下划线命名的差别，可以取别名 -->
+		select isbn,book_name bookName,price from book where isbn = #{isbn}
+	</select>
+	
+	<!-- public Employee getEmployeeById(Integer id ); -->
+	<select id="getBookByName" resultType="com.atguigu.mybatis.beans.Book">
+		select * from book where book_name = #{book_name}
+	</select>
+
+	
+</mapper>
