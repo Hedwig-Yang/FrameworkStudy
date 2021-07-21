@@ -10,6 +10,14 @@ public class Account {
     private String username;
     private Integer balance;
 
+    public Account(){}
+
+    public Account(String username,Integer balance){
+        this.username = username;
+        this.balance = balance;
+    }
+
+
     @Override
     public String toString() {
         return "Account{" +

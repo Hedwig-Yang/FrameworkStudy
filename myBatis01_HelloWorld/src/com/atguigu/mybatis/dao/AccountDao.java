@@ -10,7 +10,16 @@ import com.atguigu.mybatis.beans.Book;
  * @Version:1.0
  */
 public interface AccountDao {
-    //定义CRUD相关的方法
+    //定义CRUD相关的方法,要获取对数据库的影响条数活着是否操作成功，只需返回Integer / Boolean就好
+
+    //添加一个新的Account
+    public void addAcount(Account account);
+
+    //删除一个Account
+    public void deleteAccount(String username);
+
+    //修改一个Account
+    public void updateAccount(Account account);
 
     //根据username查询用户余额
     public Account getBalanceByUsername(String username);

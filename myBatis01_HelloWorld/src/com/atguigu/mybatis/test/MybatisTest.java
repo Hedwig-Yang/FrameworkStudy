@@ -54,7 +54,7 @@ public class MybatisTest {
     }
 
 
-
+    //测试Mapper接口方式下实现Mybatis
     @Test
     public void  testHelloWorldMapper() throws Exception {
         String resource = "mybatis-config.xml";
@@ -71,7 +71,7 @@ public class MybatisTest {
              * Mapper接口开发的好处:
              * 	 1. 有更明确的类型
              * 	 2. 接口本身: 接口本身就是抽象. 抽出了规范.
-             * 			AccountDao:    AccountDaoJdbcImpl 、 AccountDaoHibernateImpl、MyBatis代理实现类
+             * 			AccountDao:    AccountDaoJdbcImpl / AccountDaoHibernateImpl / MyBatis代理实现类
              */
             //获取MyBatis为Mapper接口生成的代理实现类对象
             AccountDao  dao = session.getMapper(AccountDao.class);
@@ -81,6 +81,41 @@ public class MybatisTest {
         } finally {
             session.close();
         }
+    }
+
+    //测试基于MyBatis框架的Mapper接口的实现方式
+    @Test
+    public void testCRUD() throws IOException {
+        SqlSession sqlSession = getSqlSession();
+        try{
+            //获取MyBatis为Mapper接口生成的代理实现类对象
+            AccountDao  dao = sqlSession.getMapper(AccountDao.class);
+            //增加
+            Account cavenAccount = new Account("Caven", 2500);
+            dao.addAcount(cavenAccount);
+            //删除
+            dao.deleteAccount("Tom");
+            //修改
+            Account jeanAccount = new Account("Jean", 5000);
+            dao.updateAccount(jeanAccount);
+            //查询
+            Account stevAccount = dao.getBalanceByUsername("stev");
+            System.out.println(stevAccount);
+
+            //提交
+            sqlSession.commit();
+        }finally {
+            sqlSession.close();
+        }
+    }
+
+    public SqlSession getSqlSession() throws IOException {
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        //打开自动提交
+        //sqlSessionFactory.openSession(true)
+        return sqlSessionFactory.openSession();
     }
 
 

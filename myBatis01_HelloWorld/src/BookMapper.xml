@@ -16,10 +16,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			resultType:  结果集的映射类型。
 			#{isbn}: 获取参数值
 	 -->
-	<select id="selectBook" resultType="com.atguigu.mybatis.beans.Book">
+	<select id="selectBook" resultType="book">
 		<!-- select * from book where isbn = #{isbn} -->
 		<!-- 为满足驼峰命名与下划线命名的差别，可以取别名 -->
-		select isbn,book_name bookName,price from book where isbn = #{isbn}
+		<!-- select isbn,book_name bookName,price from book where isbn = #{isbn} -->
+
+		<!-- 在MyBatis的全局配置文件中，设置驼峰命名与下划线命名的映射关系后，进行测试 -->
+		select * from book where isbn = #{isbn}
 	</select>
 	
 	<!-- public Employee getEmployeeById(Integer id ); -->

@@ -8,7 +8,28 @@
  -->
 <mapper namespace="com.atguigu.mybatis.dao.AccountDao">
 
-    <!--
+
+    <!-- public void addAcount(Account account);
+        parameterType:指定参数类型. 可以省略不配置,Mybatis可以通过具体传递的对象推断传递的参数类型.
+		 useGeneratedKeys:告诉Mybatis使用主键自增的方式
+		 keyProperty:  指定用对象的哪个属性保存Mybatis返回的主键值
+    -->
+    <insert id="addAcount" parameterType="Account">
+        insert into account (username,balance) values (#{username},#{balance})
+    </insert>
+
+    <delete id="deleteAccount">
+        delete from account where username = #{username}
+    </delete>
+
+    <!-- public void updateAccount(String username); -->
+    <update id="updateAccount">
+        update account set balance = #{balance} where username = #{username}
+    </update>
+
+
+
+    <!-- public Account getBalanceByUsername(String username);
         <select>: 定义查询语句
             id:  <select>的唯一标识
             resultType:  结果集的映射类型。
