@@ -65,6 +65,7 @@
     <mappers>
         <mapper resource="BookMapper.xml"/>
         <mapper resource="AccountMapper.xml"/>
+        <mapper resource="PublicTestBeanMapper.xml"/>
     </mappers>
 
 </configuration>

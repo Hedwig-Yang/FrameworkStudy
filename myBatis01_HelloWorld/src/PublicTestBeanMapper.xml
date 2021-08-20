@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 配置SQL映射
+	 namespace: 名称空间. 此时Mapper接口开发，不能随便写，按照Mapper接口名称来写。
+ -->
+<mapper namespace="com.atguigu.mybatis.dao.PublicTestBeanDao">
+
+
+    <!-- public int addPublicTestBean(PublicTestBean testBean);
+        parameterType:指定参数类型. 可以省略不配置,Mybatis可以通过具体传递的对象推断传递的参数类型.
+		 useGeneratedKeys:告诉Mybatis使用主键自增的方式
+		 keyProperty:  指定用对象的哪个属性保存Mybatis返回的主键值
+    -->
+
+    <insert id="addPublicTestBean" useGeneratedKeys="true" keyProperty="id">
+        insert into public_test_table (user_name,age,gender,school,birthday,add_time,update_time)
+            values (#{userName},#{age},#{gender},#{school},#{birthday},#{addTime},#{updateTime})
+    </insert>
+
+    <!-- public int deletePublicTestBeanById(int id); -->
+    <delete id="deletePublicTestBeanById">
+        delete from public_test_table where id = #{id}
+    </delete>
+
+    <!-- public int updatePublicTestBean(PublicTestBean testBean); -->
+    <update id="updatePublicTestBean">
+        update public_test_table set
+            user_name = #{userName},
+            age = #{age},
+            gender = #{gender},
+            school = #{school},
+            birthday = #{birthday},
+            add_time = #{addTime},
+            update_time = #{updateTime}
+        where id = #{id}
+    </update>
+
+
+    <!-- public PublicTestBean getPublicTestBeanById(int id);
+        <select>: 定义查询语句
+            id:  <select>的唯一标识
+            resultType:  结果集的映射类型。
+            #{isbn}: 获取参数值
+     -->
+    <select id="getPublicTestBeanById" resultType="PublicTestBean">
+        select * from public_test_table where id = #{id}
+    </select>
+
+
+</mapper>
