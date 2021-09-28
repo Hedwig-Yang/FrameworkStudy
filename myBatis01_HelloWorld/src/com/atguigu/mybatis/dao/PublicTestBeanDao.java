@@ -1,6 +1,9 @@
 package com.atguigu.mybatis.dao;
 
 import com.atguigu.mybatis.beans.PublicTestBean;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.Map;
 
 /**
  * @Author:KUN
@@ -21,4 +24,10 @@ public interface PublicTestBeanDao {
 
     //查询
     public PublicTestBean getPublicTestBeanById(int id);
+
+    //查询2
+    public PublicTestBean getBeanByIdAndAge(@Param("id") int id, @Param("age")int age);
+
+    //查询3
+    public PublicTestBean getBeanByMap(Map map);
 }

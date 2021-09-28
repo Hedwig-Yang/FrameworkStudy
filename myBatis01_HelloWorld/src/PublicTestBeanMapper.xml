@@ -49,5 +49,13 @@
         select * from public_test_table where id = #{id}
     </select>
 
+    <select id="getBeanByIdAndAge" resultType="PublicTestBean">
+        select * from public_test_table where id = #{id} And age = #{age}
+    </select>
+
+    <select id="getBeanByMap" resultType="PublicTestBean">
+        select * from public_test_table where id = #{id} And age = #{age}
+    </select>
+
 
 </mapper>

@@ -5,6 +5,7 @@ import com.atguigu.mybatis.beans.Book;
 import com.atguigu.mybatis.beans.PublicTestBean;
 import com.atguigu.mybatis.dao.AccountDao;
 import com.atguigu.mybatis.dao.PublicTestBeanDao;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -14,6 +15,8 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Author:KUN
@@ -68,8 +71,8 @@ public class MybatisTest {
             //mapper接口： 本质就是dao接口
             /*
              * 两个绑定:
-             * 	 1. Mapper接口与SQL映射文件的绑定.  映射文件的namesapce的值必须指定成接口的全类名.
-             * 	 2. Mapper接口的方法  与 SQL映射文件的具体SQL语句的绑定    SQL语句的id值  必须指定成接口的方法名.
+             * 	 1. Mapper接口与SQL映射文件的绑定,映射文件的namesapce的值必须指定成接口的全类名.
+             * 	 2. Mapper接口的方法与SQL映射文件的具体SQL语句的绑定,SQL语句的id值,必须指定成接口的方法名.
              *
              * Mapper接口开发的好处:
              * 	 1. 有更明确的类型
@@ -119,7 +122,7 @@ public class MybatisTest {
         try{
             PublicTestBeanDao dao = sqlSession.getMapper(PublicTestBeanDao.class);
             //增加
-            PublicTestBean testBean = new PublicTestBean();
+            /*PublicTestBean testBean = new PublicTestBean();
             testBean.setId(3);
             testBean.setUserName("Tom");
             testBean.setAge(16);
@@ -127,7 +130,7 @@ public class MybatisTest {
             testBean.setSchool("上海音乐学院");
             testBean.setBirthday(new Date(1608393600000L));
             testBean.setAddTime(new Timestamp(1626944670708L));
-            testBean.setUpdateTime(new Timestamp(1626948420585L));
+            testBean.setUpdateTime(new Timestamp(1626948420585L));*/
             //dao.addPublicTestBean(testBean);
             //删除
             //dao.deletePublicTestBeanById(4);
@@ -168,6 +171,71 @@ public class MybatisTest {
             sqlSession.close();
         }
     }
+
+
+    //测试JDBC返回主键值,(MyBatis就是对JDBC的封装)
+    @Test
+    public void testJDBCReturn() throws Exception {
+        Connection conn = getJdbcConnection();
+        String sql = "insert into public_test_table (user_name,age,gender,school,birthday,add_time,update_time) values (?,?,?,?,?,?,?)";
+        //在此次传入，进行预编译,设置返回自动生成的主键值
+        PreparedStatement statement = conn.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
+        statement.setString(1,"Dylon");
+        statement.setInt(2,33);
+        statement.setString(3,"男");
+        statement.setString(4,"帝国理工大学");
+        statement.setDate(5,new Date(1608323600000L));
+        statement.setTimestamp(6,new Timestamp(1626920713898L));
+        statement.setTimestamp(7,new Timestamp(1626920713898L));
+        statement.executeUpdate();
+        ResultSet generatedKeys = statement.getGeneratedKeys();
+        //得到主键
+        generatedKeys.next();
+        System.out.println(generatedKeys.getInt(1));
+        //关闭资源
+        generatedKeys.close();
+        statement.close();
+        conn.close();
+    }
+
+    //测试MyBatis传输参数的类型
+    @Test
+    public void testReveiveParamer() throws Exception {
+        SqlSession sqlSession = getSqlSession();
+        PublicTestBeanDao dao = sqlSession.getMapper(PublicTestBeanDao.class);
+
+        //1、单个请求参数
+            /*见方法：deletePublicTestBeanById(String id);*/
+
+        //2、几个请求参数,(数量不多，但不属于POJO对象)
+        PublicTestBean beanByIdAndAge = dao.getBeanByIdAndAge(7, 33);
+        System.out.println("beanByIdAndAge: "+beanByIdAndAge.toString());
+
+        //3、多个请求参数，数量较多，存入Map
+        Map map = new HashMap<String,Integer>();
+        map.put("id",7);
+        map.put("age",33);
+        PublicTestBean beanByMap = dao.getBeanByMap(map);
+        System.out.println("beanByMap: "+beanByMap.toString());
+
+        //4、多个请求参数属于POJP对象
+            /*见方法：addPublicTestBean(PublicTestBean testBean);
+             *多个POJO的情况下参照多请求参数，被自动封装成Map对象
+             *默认使用Key值伟：0，1，param0，param1,可用@Param在Mapper接口中配置key值  */
+
+        //5、请求参数存入集合Collection或者数组(使用foreach对请求参数遍历)
+            /*见四率项目批量插入方法
+            * Collection对应的key是collection,Array对应的key是array. 如果确定是List集合，key还可以是list. */
+    }
+
+
+
+
+
+
+
+
+
 
     public SqlSession getSqlSession() throws IOException {
         String resource = "mybatis-config.xml";
