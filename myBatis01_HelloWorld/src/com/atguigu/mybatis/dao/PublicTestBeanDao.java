@@ -13,6 +13,9 @@ import java.util.Map;
  */
 public interface PublicTestBeanDao {
 
+    /*
+     * 增删改时，直接修改Mapper接口的返回值类型，MyBatis会自动返回执行sql语句的影响条数 */
+
     //增加
     public int addPublicTestBean(PublicTestBean testBean);
 

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 配置SQL映射
+	 namespace: 名称空间. 此时Mapper接口开发，不能随便写，按照Mapper接口名称来写。
+ -->
+<mapper namespace="com.atguigu.mybatis.dao.PublicTestBeanDao">
+
+    <select id="getBeanList" resultType="PublicTestBean">
+        select * from public_test_table;
+    </select>
+
+    <select id="getBeanRetrunMap" resultType="Map">
+        select * from public_test_table where id = #{id};
+    </select>
+
+    <select id="getBeansRetrunMap" resultType="PublicTestBean">
+        select * from public_test_table;
+    </select>
+
+
+
+</mapper>
