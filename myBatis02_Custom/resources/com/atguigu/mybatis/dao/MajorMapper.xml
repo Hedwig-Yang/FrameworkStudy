@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 配置SQL映射
+	 namespace: 名称空间. 此时Mapper接口开发，不能随便写，按照Mapper接口名称来写。
+ -->
+<mapper namespace="com.atguigu.mybatis.dao.MajorMapper">
+
+<select id="getMajorById" resultType="Major">
+    select * from public_test_major where id = #{id};
+</select>
+
+
+</mapper>

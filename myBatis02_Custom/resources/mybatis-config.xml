@@ -17,6 +17,10 @@
     <settings>
         <!-- 映射下划线到驼峰命名 -->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!-- 开启延迟加载 -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!-- 配置按需加载 -->
+        <setting name="aggressiveLazyLoading" value="false"/>
     </settings>
 
     <!-- 3. typeAliases: 别名处理（可读性不好，使用较少）
@@ -27,9 +31,9 @@
 		 				  如果有别名冲突的情况，可以在类上使用@Alias()注解为冲突的类具体指定别名.
 	 -->
     <typeAliases>
-          <typeAlias type="com.atguigu.mybatis.beans.PublicTestBean" alias="PublicTestBean"/>
+        <!--<typeAlias type="com.atguigu.mybatis.beans.PublicTestBean" alias="PublicTestBean"/>-->
         <!--使用批量注册，这种方式要求SQL映射文件名必须和接口名相同并且在同一目录下-->
-        <!--<package name="com.atguigu.mybatis.beans"/>-->
+        <package name="com.atguigu.mybatis.beans"/>
     </typeAliases>
 
     <!-- 4. 环境们
@@ -64,7 +68,10 @@
 			    要求: SQL映射文件 必须与 Mapper接口同名同位置.
     -->
     <mappers>
-        <mapper resource="PublicTestBeanMapper.xml"/>
+        <!-- 有SQL映射文件 , 要求Mapper接口与 SQL映射文件同名同位置 -->
+        <!--<mapper resource="com/atguigu/mybatis/dao/PublicTestBeanMapper.xml"/>
+        <mapper class="com.atguigu.mybatis.dao.BeanMapper"/>-->
+        <package name="com.atguigu.mybatis.dao"/>
     </mappers>
 
 </configuration>

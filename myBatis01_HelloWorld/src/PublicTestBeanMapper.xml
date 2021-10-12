@@ -6,7 +6,7 @@
 <!-- 配置SQL映射
 	 namespace: 名称空间. 此时Mapper接口开发，不能随便写，按照Mapper接口名称来写。
  -->
-<mapper namespace="com.atguigu.mybatis.dao.PublicTestBeanDao">
+<mapper namespace="com.atguigu.mybatis.dao.PublicTestBeanMapper">
 
 
     <!-- public int addPublicTestBean(PublicTestBean testBean);

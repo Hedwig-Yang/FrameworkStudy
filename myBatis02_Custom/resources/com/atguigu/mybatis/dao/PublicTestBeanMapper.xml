@@ -6,7 +6,7 @@
 <!-- 配置SQL映射
 	 namespace: 名称空间. 此时Mapper接口开发，不能随便写，按照Mapper接口名称来写。
  -->
-<mapper namespace="com.atguigu.mybatis.dao.PublicTestBeanDao">
+<mapper namespace="com.atguigu.mybatis.dao.PublicTestBeanMapper">
 
     <select id="getBeanList" resultType="PublicTestBean">
         select * from public_test_table;
@@ -19,6 +19,11 @@
     <select id="getBeansRetrunMap" resultType="PublicTestBean">
         select * from public_test_table;
     </select>
+
+    <select id="geBeanListByMid" resultType="PublicTestBean">
+        select * from public_test_table where m_id = #{id};
+    </select>
+
 
 
 

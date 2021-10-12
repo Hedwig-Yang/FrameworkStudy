@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 配置SQL映射
+	 namespace: 名称空间. 此时Mapper接口开发，不能随便写，按照Mapper接口名称来写。
+ -->
+<mapper namespace="com.atguigu.mybatis.dao.BeanMapper">
+
+
+    <select id="getBeanById" resultMap="myBean">
+        select * from public_test_table where id = #{id};
+    </select>
+
+
+    <!-- 自定义映射：主要用于连表查询或多表查询的情况
+        type:最终结果集封装的类型
+        <id>:完成主键列的映射
+            column: 指定结果集的列名
+            property：指定对象的属性名
+        <result>:完成普通列的映射
+     -->
+    <resultMap id="myBean" type="PublicTestBean">
+        <id column="id" property="id"/>
+        <result column="user_name" property="userName"/>
+        <result column="age" property="age"/>
+        <result column="gender" property="gender"/>
+        <result column="school" property="school"/>
+        <result column="birthday" property="birthday"/>
+        <result column="add_time" property="addTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+
+    <select id="getBeanAndMajor" resultMap="myBeanAndMajor">
+        select b.id bean_id,b.user_name,b.age,b.gender,b.school,b.birthday,b.add_time,b.update_time,m.id major_id,m.major_name
+        from public_test_table  b join public_test_major m on b.id = m.id where b.id = #{id};
+    </select>
+
+    <!-- 测试resultMap的级联映射 -->
+    <resultMap id="myBeanAndMajor" type="PublicTestBean">
+        <id column="bean_id" property="id"/>
+        <result column="user_name" property="userName"/>
+        <result column="age" property="age"/>
+        <result column="gender" property="gender"/>
+        <result column="school" property="school"/>
+        <result column="birthday" property="birthday"/>
+        <result column="add_time" property="addTime"/>
+        <result column="update_time" property="updateTime"/>
+        <!-- 级联方式的属性映射 -->
+        <!--<result column="major_id" property="major.id"/>
+        <result column="major_name" property="major.majorName"/>-->
+
+        <!-- 级联映射：association标签定义单个对象的封装规则（1对1），
+            property: 指定联合属性
+            Java Type：指定联合属性的类型
+         -->
+        <association property="major" javaType="Major">
+            <id column="major_id" property="id"/>
+            <result column="major_name" property="majorName"/>
+        </association>
+    </resultMap>
+
+
+    <!-- 测试resultMap的分步关联映射 -->
+    <select id="getBeanAndMajorByStep" resultMap="myBeanAndMajorByStep">
+        select id,user_name,age,gender,school,birthday,add_time,update_time,m_id
+        from public_test_table where id = #{id};
+    </select>
+
+    <!-- 测试resultMap的分步关联映射:association -->
+    <resultMap id="myBeanAndMajorByStep" type="PublicTestBean">
+        <id column="id" property="id"/>
+        <result column="user_name" property="userName"/>
+        <result column="age" property="age"/>
+        <result column="gender" property="gender"/>
+        <result column="school" property="school"/>
+        <result column="birthday" property="birthday"/>
+        <result column="add_time" property="addTime"/>
+        <result column="update_time" property="updateTime"/>
+        <!-- 级联映射：association标签实现分步查询 -->
+        <association property="major"
+            select="com.atguigu.mybatis.dao.MajorMapper.getMajorById"
+            column="m_id">
+        </association>
+    </resultMap>
+
+    <!-- 测试resultMap的级联映射 -->
+    <select id="getMajorAndBeans" resultMap="myMajorAndBenas">
+        select m.id mid,m.major_name,b.id bid,b.user_name,b.age,b.gender,b.school,b.birthday,b.add_time,b.update_time
+        from public_test_major m
+        left join public_test_table b
+        on m.id = b.m_id
+        where m.id = #{id}
+    </select>
+    <!-- collection标签标签定义多个对象的封装规则（1对多） -->
+    <resultMap id="myMajorAndBenas" type="Major">
+        <id column="mid" property="id"/>
+        <result column="major_name" property="majorName"/>
+        <!--
+            collection: 完成集合类型的联合属性的映射
+                property: 指定联合属性
+                ofType: 指定集合中元素的类型
+         -->
+        <collection property="beans" ofType="PublicTestBean">
+            <id column="bid" property="id"/>
+            <result column="user_name" property="userName"/>
+            <result column="age" property="age"/>
+            <result column="gender" property="gender"/>
+            <result column="school" property="school"/>
+            <result column="birthday" property="birthday"/>
+            <result column="add_time" property="addTime"/>
+            <result column="update_time" property="updateTime"/>
+        </collection>
+    </resultMap>
+
+    <!-- 抽取重复sql语句片段 -->
+    <sql id="sqlSentence">
+        select id,major_name from public_test_major
+    </sql>
+
+    <!-- 测试resultMap的分步关联映射:collection标签-->
+    <select id="getMajorAndBeansByStep" resultMap="myMajorAndBenasByStep">
+        <!--使用include标签复用sql语句-->
+        <include refid="sqlSentence"></include> where id = #{id};
+    </select>
+
+    <resultMap id="myMajorAndBenasByStep" type="Major">
+        <id column="id" property="id"/>
+        <result column="major_name" property="majorName"/>
+        <collection property="beans"
+            select = "com.atguigu.mybatis.dao.PublicTestBeanMapper.geBeanListByMid"
+            column = "id">
+            <!--分布查询中如果需要传多列值，使用Map来进行传递，语法如下: {k1=v1, k2=v2....} -->
+            <!--在<association> 和<collection>标签中都可以设置fetchType，指定本次查询是否要使用延迟加载-->
+        </collection>
+    </resultMap>
+
+
+
+</mapper>

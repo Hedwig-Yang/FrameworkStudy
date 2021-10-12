@@ -1,7 +1,9 @@
 package com.atguigu.mybatis.test;
 
+import com.atguigu.mybatis.beans.Major;
 import com.atguigu.mybatis.beans.PublicTestBean;
-import com.atguigu.mybatis.dao.PublicTestBeanDao;
+import com.atguigu.mybatis.dao.BeanMapper;
+import com.atguigu.mybatis.dao.PublicTestBeanMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -11,8 +13,6 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,7 +31,7 @@ public class MybatisTest {
     @Test
     public void testSelect() throws Exception{
         SqlSession sqlSession = getSqlSession();
-        PublicTestBeanDao dao = sqlSession.getMapper(PublicTestBeanDao.class);
+        PublicTestBeanMapper dao = sqlSession.getMapper(PublicTestBeanMapper.class);
         try{
             //测试查询多行数据，返回一个对象的集合
             //List<PublicTestBean> beanList = dao.getBeanList();
@@ -50,8 +50,76 @@ public class MybatisTest {
     }
 
     //测试自定义映射
+    @Test
+    public void testResultMap() throws Exception{
+        SqlSession sqlSession = getSqlSession();
+        BeanMapper dao = sqlSession.getMapper(BeanMapper.class);
+        try{
+            PublicTestBean beanById = dao.getBeanById(3);
+            System.out.println(beanById);
+        }finally {
+            sqlSession.close();
+        }
+    }
 
+    //测试自定义映射(级联属性映射和关联属性映射的情况)
+    @Test
+    public void testResultMapCascade() throws Exception{
+        SqlSession sqlSession = getSqlSession();
+        BeanMapper dao = sqlSession.getMapper(BeanMapper.class);
+        try{
+            PublicTestBean beanById = dao.getBeanAndMajor(3);
+            System.out.println(beanById);
+            System.out.println(beanById.getMajor());
+        }finally {
+            sqlSession.close();
+        }
+    }
 
+    //测试association的分步查询,基于分步查询配置懒加载
+    //在实际开发中每个实体类都对应有增删改查的操作，因此采用分步查询相比较连表查询更加简洁
+    @Test
+    public void testResultMapAssociationByStep() throws Exception{
+        SqlSession sqlSession = getSqlSession();
+        BeanMapper dao = sqlSession.getMapper(BeanMapper.class);
+        try{
+            PublicTestBean beanById = dao.getBeanAndMajorByStep(3);
+            System.out.println(beanById.getUserName());
+            System.out.println("--------------------------------------");
+            System.out.println(beanById.getMajor().getMajorName());
+        }finally {
+            sqlSession.close();
+        }
+    }
+
+    //测试resultMap的级联映射：collection标签标签定义多个对象的封装规则（1对多）
+    @Test
+    public void testResultMapCollection() throws Exception{
+        SqlSession sqlSession = getSqlSession();
+        BeanMapper dao = sqlSession.getMapper(BeanMapper.class);
+        try{
+            Major majorById = dao.getMajorAndBeans(3);
+            System.out.println(majorById.toString());
+            System.out.println(majorById.getBeans());
+        }finally {
+            sqlSession.close();
+        }
+    }
+
+    //测试collection的分步查询,基于分步查询配置懒加载
+    @Test
+    public void testResultMapCollectionByStep() throws Exception{
+        SqlSession sqlSession = getSqlSession();
+        BeanMapper dao = sqlSession.getMapper(BeanMapper.class);
+        try{
+            Major majorById = dao.getMajorAndBeansByStep(3);
+            System.out.println(majorById.getMajorName());
+            System.out.println("-----------------------------------------");
+            System.out.println(majorById.getBeans());
+        }finally {
+            sqlSession.close();
+        }
+    }
 
 
 

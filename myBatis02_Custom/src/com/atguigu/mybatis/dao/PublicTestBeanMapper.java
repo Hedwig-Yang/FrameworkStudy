@@ -13,7 +13,7 @@ import java.util.Map;
  * @Description: 数据库操作类
  * @Version:1.0
  */
-public interface PublicTestBeanDao {
+public interface PublicTestBeanMapper {
 
     //day02
 
@@ -28,5 +28,8 @@ public interface PublicTestBeanDao {
     //查询多条数据返回一个Map
     @MapKey("id") //指定适用对象的哪个属性作为Map的Key
     public Map<Integer,PublicTestBean>getBeansRetrunMap();
+
+    //根据专业id查询学生信息
+    public List<PublicTestBean> geBeanListByMid(Integer id);
 
 }

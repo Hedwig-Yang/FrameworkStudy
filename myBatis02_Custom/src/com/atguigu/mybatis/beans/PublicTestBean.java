@@ -19,6 +19,8 @@ public class PublicTestBean {
     private Timestamp addTime;
     private Timestamp updateTime;
 
+    private Major major;
+
     public PublicTestBean() {}
 
     public PublicTestBean(int id, String userName, int age, String gender,
@@ -95,6 +97,14 @@ public class PublicTestBean {
 
     public void setUpdateTime(Timestamp updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Major getMajor() {
+        return major;
+    }
+
+    public void setMajor(Major major) {
+        this.major = major;
     }
 
     @Override
