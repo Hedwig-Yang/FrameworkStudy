@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 配置SQL映射
+	 namespace: 名称空间. 此时Mapper接口开发，不能随便写，按照Mapper接口名称来写。
+ -->
+<mapper namespace="com.atguigu.mybatis.dao.BeanDynamicSqlMapper">
+
+    <!-- 测试动态SQL, 使用OGNL表达式 -->
+    <select id="getBeansByConditionIfWhere" resultType="PublicTestBean">
+        select * from public_test_table
+        <!-- 使用where标签：解决无条件情况下查询，SQL语法报错的问题
+            作用：1、提供SQL语句中的where关键字。2、解决SQL语句第一个出现的and或者or的语法问题
+         -->
+        <where>
+            <!-- 使用if标签：解决多条件查询，条件拼接的问题 -->
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <!-- 转义字符：&amp;表示& , &quot;表示 " -->
+            <if test = "userName != null &amp;&amp; userName != &quot;&quot;">
+                and user_name = #{userName}
+            </if>
+            <!-- 去空格,OGNL表达式中使用and代表转义字符&amp;，用单引号代表双引号的转义字符&quot; -->
+            <if test="school != null and school.trim() != ''">
+                and school = #{school}
+            </if>
+            <if test="gender == '男' or gender == '女'">
+                and gender = #{gender}
+            </if>
+            <!-- 对于and跟在每个条件后面的情况，可以使用trim标签代替where标签 -->
+        </where>
+    </select>
+
+
+    <!-- 测试<Trim>标签 -->
+    <select id="getBeansByConditionTrim" resultType="PublicTestBean">
+        select * from public_test_table
+        <!--
+            trim标签
+                prefix：添加一个前缀
+                prefixOverrides：覆盖/去掉一个前缀
+                suffixOverrides：覆盖/去掉一个后缀
+         -->
+        <trim prefix="where" suffixOverrides="and|or">
+            <!-- 对于同时存在and和or的逻辑运算的情况，可以suffixOverrides="and|or"来去后缀
+             也可以考虑使用<trim>标签嵌套的方式，两层标签，去掉两个后缀-->
+            <if test="id != null">
+                id = #{id} and
+            </if>
+            <if test = "userName != null &amp;&amp; userName != &quot;&quot;">
+                user_name = #{userName} and
+            </if>
+            <if test="school != null and school.trim() != ''">
+                school = #{school} and
+            </if>
+            <if test="gender == '男' or gender == '女'">
+                gender = #{gender} and
+            </if>
+        </trim>
+    </select>
+
+
+    <!-- 测试<Set>标签 -->
+    <update id="updateBeansBySet">
+        update public_test_table
+        <!--
+            set标签
+            作用：专用在update操作时，去掉修改数据最后的后缀逗号。也可使用trim
+         -->
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="age != null">
+                age = #{age},
+            </if>
+            <if test="gender == '男' or gender == '女'">
+                gender = #{gender},
+            </if>
+            <if test="school != null and school.trim() != ''">
+                school = #{school},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+    <!-- 测试<choose>标签 -->
+    <select id="getBeansByChoose" resultType="PublicTestBean">
+        select * from public_test_table
+        <!-- 使用choose标签：
+            按顺序判断并选择一个满足要求的条件，参与查询，都不满足的情况使用otherwise中的条件
+         -->
+        <where>
+            <choose>
+                <when test="id != null">
+                    and id = #{id}
+                </when>
+                <when test = "age != null">
+                    and age = #{age}
+                </when>
+                <when test="school != null and school.trim() != ''">
+                    and school = #{school}
+                </when>
+                <otherwise>
+                    and gender = '男'
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+
+    <!-- 测试<foreach>标签 -->
+    <select id="getBeansByForeach" resultType="PublicTestBean">
+        <!--
+            select * from public_test_table where id in(?,?,?);
+            select * from public_test_table where id = ? or id = ? or id = ?;
+        -->
+        select * from public_test_table
+        <!-- 使用foreach标签：
+            collection: 要做foreach的对象collection,作为入参时，List对象默认用"list"代替作为键，数组对象有"array"代替作为键，Map对象没有默认的键。
+            item：集合中元素迭代时的别名，该参数为必选。
+            open：foreach代码的开始符号，一般是(和close=")"合用。常用在in(),values()时。该参数可选
+            separator：元素之间的分隔符，例如在in()的时候，separator=","会自动在元素中间用“,“隔开。
+            close: foreach代码的关闭符号，一般是)和open="("合用。常用在in(),values()时。该参数可选。
+            index：在list和数组中,index是元素的序号，在map中，index是元素的key，该参数可选
+         -->
+        <foreach collection="ids" item="currId" open="where id in (" close=")" separator=",">
+            #{currId}
+        </foreach>
+    </select>
+
+    <!-- 测试<foreach>批量插入标签
+        insert into public_test_major(id,major_name) values(?,?),(?,?),(?,?)
+        删除:delete from tbl_employee where id in(?,?,?)
+		修改: update tbl_employee set  last_name = #{lastName} ...where id = #{id};
+			 update tbl_employee set  last_name = #{lastName} ...where id = #{id};
+			 update tbl_employee set  last_name = #{lastName} ...where id = #{id};
+		默认情况下， JDBCB不允许将多条SQL通过;拼成一个字符串。
+		可以在连接的url后面加上一个参数:  allowMultiQueries=true
+    -->
+    <insert id="BatchInsertByForeach">
+        insert into public_test_major(id,major_name) values
+        <foreach collection="majors" item="major" separator=",">
+            (#{major.id},#{major.majorName})
+        </foreach>
+    </insert>
+
+
+
+
+
+</mapper>

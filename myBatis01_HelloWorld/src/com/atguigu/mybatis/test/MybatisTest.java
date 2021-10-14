@@ -165,7 +165,7 @@ public class MybatisTest {
             int i = dao.addPublicTestBean(testBean);
             System.out.println(i);
             System.out.println(testBean.getId());
-            //提交
+            //提交，MyBatis内做增删改操作时，需要有一步提交操作，才能生效。也可设置自动提交
             sqlSession.commit();
         }finally {
             sqlSession.close();
@@ -242,7 +242,7 @@ public class MybatisTest {
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         //打开自动提交
-        //sqlSessionFactory.openSession(true)
+        //return sqlSessionFactory.openSession(true)
         return sqlSessionFactory.openSession();
     }
 

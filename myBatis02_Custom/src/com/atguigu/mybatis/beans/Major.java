@@ -14,6 +14,13 @@ public class Major {
     private String majorName;
     private List<PublicTestBean> beans;
 
+    public Major(){};
+
+    public Major(Integer id, String majorName) {
+        this.id = id;
+        this.majorName = majorName;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -10,20 +10,21 @@ import java.sql.Timestamp;
  * @Version:1.0
  */
 public class PublicTestBean {
-    private int id;
+    private Integer id;
     private String userName;
-    private int age;
+    private Integer age;
     private String gender;
     private String school;
     private Date birthday;
     private Timestamp addTime;
     private Timestamp updateTime;
+    private Integer mId;
 
     private Major major;
 
     public PublicTestBean() {}
 
-    public PublicTestBean(int id, String userName, int age, String gender,
+    public PublicTestBean(Integer id, String userName, Integer age, String gender,
                           String school, Date birthday, Timestamp addTime, Timestamp updateTime) {
         this.id = id;
         this.userName = userName;
@@ -35,11 +36,19 @@ public class PublicTestBean {
         this.updateTime = updateTime;
     }
 
-    public int getId() {
+    public Integer getmId() {
+        return mId;
+    }
+
+    public void setmId(Integer mId) {
+        this.mId = mId;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -51,11 +60,11 @@ public class PublicTestBean {
         this.userName = userName;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
@@ -114,10 +123,12 @@ public class PublicTestBean {
                 ", userName='" + userName + '\'' +
                 ", age=" + age +
                 ", gender='" + gender + '\'' +
-                ", scholl='" + school + '\'' +
+                ", school='" + school + '\'' +
                 ", birthday=" + birthday +
                 ", addTime=" + addTime +
                 ", updateTime=" + updateTime +
+                ", mId=" + mId +
+                ", major=" + major +
                 '}';
     }
 }

@@ -136,7 +136,7 @@ public class MybatisTest {
         String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-        //打开自动提交
+        //打开自动提交。MyBatis内做增删改操作时，需要有一步提交操作，才能生效。也可设置自动提交
         //sqlSessionFactory.openSession(true)
         return sqlSessionFactory.openSession();
     }
