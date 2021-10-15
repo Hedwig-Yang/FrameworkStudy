@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.guigu</groupId>
+    <artifactId>springBoot01_HelloWorld</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <!-- 不写打包方式的时候默认打war包 -->
+    <packaging>jar</packaging>
+
+    <!--
+        使用SpringBoot的功能，必须先引入SpringBoot的父项目，
+        也就是SpringBoot框架的基本依赖管理，实现自动版本仲裁机制，从而避免jar包版本冲突的问题
+    -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.4.RELEASE</version>
+    </parent>
+
+    <!--
+        自定义依赖版本：
+        1、查看spring-boot-dependencies里面规定当前依赖的版本 用的 key。
+        2、在当前项目里面重写配置
+    -->
+    <properties>
+        <mysql.version>5.1.43</mysql.version>
+    </properties>
+
+    <!-- 引用Web启动器：提供Web开发场景所需的底层所有依赖
+            starter：一组依赖的集合描述
+     -->
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+    </dependencies>
+
+    <!-- 打包工具插件依赖 -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+
+
+
+<!--
+    知识点总结：
+        1、引入SpringBoot的父项目，实现自动版本仲裁。
+        2、根据不同的开发场景，导入不同的starter场景启动器，从而导入需要的依赖
+        3、如果版本仲裁不能满足对指定jar版本的要求，可以自定义jar版本。
+        4、自动配置。比如SpringMVC，1>引入SpringMVC组件jar包；2>实现SpringMVC自动配置。
+           (包括：文件上传、视图解析、字符编码、前端控制器)
+        5、各种配置都拥有默认值
+           1> 所有的配置都映射成一个java类，在SpringBoot启动后在IOC容器中创建对象，并接收管理
+           2> 配置文件中配置的值，最后都会绑定到指定的类上
+        6、默认包结构：主程序MainApplication所在的包，及其下属的所有包都能被扫描到
+           允许自定义包结构：@SpringBootApplication(scanBasePackages="com.atguigu")，或者@ComponentScan 指定扫描路径
+        7、按需加载所有自动配置项
+           1> SpringBoot包含非常多的各种开发场景的Starter
+           2> SpringBoot所有场景的自动配置功能都在 spring-boot-autoconfigure 包里面
+           3> 引入引入指定场景的Starter,相关的配置才会自动开启
+ -->
+
+</project>
