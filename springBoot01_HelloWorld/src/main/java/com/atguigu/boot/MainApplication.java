@@ -54,7 +54,8 @@ public class MainApplication {
          */
         System.out.println("配置类返回组件对象："+(user1 == user2));
 
-        //6、proxyBeanMethods = true为全量模式，作用是解决组件依赖的问题，以User组件依赖Pet组件为例
+        //6、proxyBeanMethods = true为全量模式，作用是解决组件依赖的问题，
+        //   保证容器中相互以来的组件，都来自于IOC容器以User组件依赖Pet组件为例
         User user01 = run.getBean("user01", User.class);
         Pet tom = run.getBean("tom", Pet.class);
         System.out.println("user内的宠物是否来自于IOC容器："+(user01.getPet() == tom));
