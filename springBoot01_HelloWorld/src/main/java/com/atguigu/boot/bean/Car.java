@@ -1,6 +1,8 @@
 package com.atguigu.boot.bean;
 
 
+import lombok.Data;
+import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -10,12 +12,14 @@ import org.springframework.stereotype.Component;
  */
 //@Component
 @ConfigurationProperties(prefix = "mycar")
+//使用lombok简化JavaBean的开发
+@Data
 public class Car {
 
     private String brand;
     private Integer price;
 
-    public String getBrand() {
+    /*public String getBrand() {
         return brand;
     }
 
@@ -37,7 +41,7 @@ public class Car {
                 "brand='" + brand + '\'' +
                 ", price=" + price +
                 '}';
-    }
+    }*/
 }
 
 /**

@@ -33,7 +33,6 @@ import org.springframework.context.annotation.*;
 //@EnableConfigurationProperties（开启Car配置绑定功能） + @ConfigurationProperties（Car配置绑定） = @Component（把这个Car这个组件自动注册到容器中） + @ConfigurationProperties（Car配置绑定）
 @EnableConfigurationProperties(Car.class)
 public class MyConfig {
-
     @Bean("tom") //可在@Bean标签中自定义容器中配置的实例名称
     public Pet tomcatPet(){
         return new Pet("tomcat");

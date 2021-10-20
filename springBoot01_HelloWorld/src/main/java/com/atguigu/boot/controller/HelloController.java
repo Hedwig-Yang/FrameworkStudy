@@ -1,6 +1,7 @@
 package com.atguigu.boot.controller;
 
 import com.atguigu.boot.bean.Car;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 //@Controller
 //@ResponseBody //类上的ResponseBody表示类内的所有接口返回字符串给浏览器
 @RestController //作用等同于@Controller + @ResponseBody
+@Slf4j
 public class HelloController {
 
     @Autowired
@@ -30,6 +32,7 @@ public class HelloController {
     //@ResponseBody
     @RequestMapping("/hello")
     public String handle01(){
+        log.info("请求进来了");
         return "Hello SpringBoot2";
     }
 

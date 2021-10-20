@@ -42,12 +42,21 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-
+        <!-- Spring Boot configuration annotation processor not found in classpath -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
+
+        <!-- 引入lombok插件简化JavaBean的开发-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+
+
     </dependencies>
 
     <!-- 打包工具插件依赖 -->
