@@ -5,8 +5,10 @@ import com.atguigu.boot.bean.Pet;
 import com.atguigu.boot.bean.User;
 import com.atguigu.boot.config.MyConfig;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @Author:Z
@@ -20,7 +22,7 @@ import org.springframework.context.ConfigurableApplicationContext;
  * 主程序类：所有启动的入口
  * @SpringBootApplication:声明这是个SpringBoot应用
  */
-@SpringBootApplication
+@SpringBootApplication  // =@SpringBootConfiguration + @EnableAutoConfiguration + @ComponentScan(com.atguigu.boot)
 public class MainApplication {
 
     public static void main(String[] args){
@@ -81,7 +83,5 @@ public class MainApplication {
         boolean hehe = run.containsBean("hehe");
         System.out.println("存在haha:"+haha);
         System.out.println("存在hehe:"+hehe);
-
-
     }
 }

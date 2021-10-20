@@ -1,5 +1,7 @@
 package com.atguigu.boot.controller;
 
+import com.atguigu.boot.bean.Car;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,6 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController //作用等同于@Controller + @ResponseBody
 public class HelloController {
 
+    @Autowired
+    Car car;
+
+
+
     /**
      * @ResponseBody:表示接口返回数据以字符串形式返回给浏览器，而不是页面跳转。
      */
@@ -24,5 +31,13 @@ public class HelloController {
     @RequestMapping("/hello")
     public String handle01(){
         return "Hello SpringBoot2";
+    }
+
+    /**
+     * 测试@ConfigurationProperties(prefix = "mycar")实现配置绑定
+     */
+    @RequestMapping("/car")
+    public Car getCar(){
+        return car;
     }
 }

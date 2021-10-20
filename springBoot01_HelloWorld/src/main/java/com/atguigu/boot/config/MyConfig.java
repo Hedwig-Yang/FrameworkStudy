@@ -2,9 +2,11 @@ package com.atguigu.boot.config;
 
 
 import ch.qos.logback.core.db.DBHelper;
+import com.atguigu.boot.bean.Car;
 import com.atguigu.boot.bean.Pet;
 import com.atguigu.boot.bean.User;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.*;
 
 
@@ -28,6 +30,8 @@ import org.springframework.context.annotation.*;
 @Import({User.class, DBHelper.class}) //向IOC容器导入指定类型的组件
 @ImportResource("classpath:beans.xml")
 @Configuration(proxyBeanMethods = true) //告诉SpringBoot这是一个配置类 == xml配置文件,proxyBeanMethods默认为true
+//@EnableConfigurationProperties（开启Car配置绑定功能） + @ConfigurationProperties（Car配置绑定） = @Component（把这个Car这个组件自动注册到容器中） + @ConfigurationProperties（Car配置绑定）
+@EnableConfigurationProperties(Car.class)
 public class MyConfig {
 
     @Bean("tom") //可在@Bean标签中自定义容器中配置的实例名称

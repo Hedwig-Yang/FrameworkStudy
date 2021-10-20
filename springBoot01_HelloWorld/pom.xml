@@ -34,9 +34,19 @@
             starter：一组依赖的集合描述
      -->
     <dependencies>
+        <!-- 引用Web启动器：提供Web开发场景所需的底层所有依赖
+            starter：一组依赖的集合描述
+        -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 
