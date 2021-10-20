@@ -56,6 +56,15 @@
             <version>${lombok.version}</version>
         </dependency>
 
+        <!-- 开启热部署
+             每次修改项目后使用Ctrl+F9，编译项目后生效，修改.java文件相当于自动重启Shift+F10,
+             在Web开发的情况下,修改静态资源时，不用重启，效率更高
+         -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <version>2.3.4.RELEASE</version>
+        </dependency>
 
     </dependencies>
 
