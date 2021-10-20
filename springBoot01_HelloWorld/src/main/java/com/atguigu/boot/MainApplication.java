@@ -1,5 +1,6 @@
 package com.atguigu.boot;
 
+import ch.qos.logback.core.db.DBHelper;
 import com.atguigu.boot.bean.Pet;
 import com.atguigu.boot.bean.User;
 import com.atguigu.boot.config.MyConfig;
@@ -10,7 +11,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 /**
  * @Author:Z
  * @Data:2021/10/14 18:14
- * @Description: 主程序类
+ * @Description: 主程序类，也叫主配置类
  * @Version:1.0
  */
 
@@ -59,6 +60,27 @@ public class MainApplication {
         User user01 = run.getBean("user01", User.class);
         Pet tom = run.getBean("tom", Pet.class);
         System.out.println("user内的宠物是否来自于IOC容器："+(user01.getPet() == tom));
+
+        //7、MyConfig配置类中@Import({User.class, DBHelper.class})标签，作用是调用指定类的无参构造方法，在IOC容器中创建组件实例
+        String[] beanNamesForType = run.getBeanNamesForType(User.class);
+        System.out.println("所有user组件的名称如下：");
+        for(String userName:beanNamesForType){
+            System.out.println(userName);
+        }
+        DBHelper bean = run.getBean(DBHelper.class);
+        System.out.println("DBhelper的组件："+bean);
+
+        //8、学习条件注解@Conditional的使用，以@ConditionalOnBean为例，
+        boolean containTom = run.containsBean("tom");
+        System.out.println("IOC容器中tom实例存在："+ containTom);
+        boolean containsUser01 = run.containsBean("user01");
+        System.out.println("IOC容器中user01实例存在："+ containsUser01);
+
+        //9、学习组件导入注解：@ImportResource,适用于需要导入指定的xml配置文件的情况
+        boolean haha = run.containsBean("haha");
+        boolean hehe = run.containsBean("hehe");
+        System.out.println("存在haha:"+haha);
+        System.out.println("存在hehe:"+hehe);
 
 
     }
