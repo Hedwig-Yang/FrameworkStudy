@@ -44,3 +44,14 @@ public class HelloController {
         return car;
     }
 }
+
+/**
+ * 总结：@ResponseBody的作用：
+ *      注解@responseBody的作用是将controller的方法返回的对象通过适当的转换器转换为指定的格式之后，
+ *      写入到response对象的body区，通常用来返回JSON数据或者是XML数据。一般在异步获取数据时使用【也就是AJAX】。
+ *      注意：
+ *          1、在使用此注解之后不会再走视图处理器，而是直接将数据写入到输入流中，他的效果等同于通过response对象输出指定格式的数据。
+ *          2、在使用 @RequestMapping后，返回值通常解析为跳转路径，但是加上 @ResponseBody 后返回结果不会被解析为跳转路径，
+ *             而是直接写入 HTTP response body 中。 比如异步获取 json 数据，加上 @ResponseBody 后，会直接返回 json 数据。
+ *             @RequestBody 将 HTTP 请求正文插入方法中，使用适合的 HttpMessageConverter 将请求体写入某个对象。
+ */

@@ -1,3 +1,4 @@
+#1、学习yml配置
 person:
   #  单引号内会将 \n作为字符串输出   双引号内会将\n 作为换行输出
   boss: true
@@ -33,6 +34,24 @@ person:
 
 
 
+spring:
+  mvc:
+    #配置静态资源访问前缀，避免静态资源请求被Controller匹配到
+    # 注意：1、此时欢迎页面index:html不能被默认访问。2、会导致favicon.ico（页面图标）功能失效
+    #static-path-pattern: /res/**
+  web:
+    resources:
+      #默认静态资源放在类路径下： static、public、resources、META-INF/resources。访问路径：当前项目根路径/ + 静态资源名
+      #允许自定义资源路径：customStaticPackage
+      static-locations: [classpath:/customStaticPackage/]
+      #静态资源路径映射功能开关，默认为true，设置为false时直接禁用所有静态资源。
+      add-mappings: true
+
+
+
+
+
+
 
 #spring:
 #  banner:
@@ -42,3 +61,4 @@ person:
 #    type: redis
 #    redis:
 #      time-to-live: 11000
+

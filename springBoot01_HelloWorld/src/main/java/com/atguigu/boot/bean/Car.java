@@ -50,7 +50,7 @@ public class Car {
  *          @ConfigurationProperties(prefix = "mycar")（将配置文件中的配置项与需要配置的组件的类绑定）
  *          @Component（将类注册到容器生成组件）
  *  2、在组件类上使用@ConfigurationProperties绑定配置文件的配置项，
- *     在配置类(MyConfig.java)使用@EnableConfigurationProperties(Car.class)，开启配置绑定功能，并组测到IOC容器，生成组件
+ *     在配置类(MyConfig.java)使用@EnableConfigurationProperties(Car.class)，开启配置绑定功能，并注册到IOC容器，生成组件
  */
 
 
