@@ -51,7 +51,7 @@
     <!-- 指定请求映射url -->
     <servlet-mapping>
         <servlet-name>springDespatcherServlet</servlet-name>
-        <!--为能接收除JSP以外的所有请求同时支持Rest服务，将url设置为 / -->
+        <!--为能接收除JSP以外的所有请求,同时支持Rest服务，将url设置为 / -->
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 

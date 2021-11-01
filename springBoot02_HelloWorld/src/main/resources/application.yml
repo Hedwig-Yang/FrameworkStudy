@@ -36,7 +36,11 @@ person:
 
 spring:
   mvc:
-    #配置静态资源访问前缀，避免静态资源请求被Controller匹配到
+    hiddenmethod:
+      filter:
+        ##开启页面表单的Rest功能
+        enabled: true
+  #配置静态资源访问前缀，避免静态资源请求被Controller匹配到
     # 注意：1、此时欢迎页面index:html不能被默认访问。2、会导致favicon.ico（页面图标）功能失效
     #static-path-pattern: /res/**
   web:
@@ -46,7 +50,6 @@ spring:
       static-locations: [classpath:/customStaticPackage/]
       #静态资源路径映射功能开关，默认为true，设置为false时直接禁用所有静态资源。
       add-mappings: true
-
 
 
 
