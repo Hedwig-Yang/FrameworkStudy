@@ -76,7 +76,7 @@ public class SpringmvcHandler {
      * 2、在返回值前加上"forward:"的字符串，就可以实现转发
      * 3、一般情况下，控制器方法返回字符串类型的值会被当成逻辑视图名处理,如果返回的字符串中带 forward:
      *      或 redirect: 前缀时，SpringMVC 会对他们进行特殊处理：将 forward: 和 redirect: 当成指示符，
-     *      其后的字符串作为 URL 来处理，（因此转发和重定向时，不经过视图解析器）
+     *      其后的字符串作为 URL 来处理，（因此转发经过视图解析器，但是重定向不经过视图解析器）
      */
     @RequestMapping("/testRedirectView")
     public String testRedirectView(){
@@ -94,3 +94,13 @@ public class SpringmvcHandler {
  *  2、转发到JSP页面
  *  3、使用El表达式取出数据
  */
+
+/**
+ * 什么是转发和重定向java
+ *     转发是服务器行为，重定向是客户端行为。转发耗时比重定向少。
+ * 小知识：WEB-INF文件夹下的任何文件都是不能经过url直接访问的。
+ *     1.转发，是会经过视图解析器，进行前缀后缀添加，能够访问WEB-INF文件夹下的文件
+ *     2.重定向，不会经过视图解析器，也就不会添加前缀和后缀，不能够访问WEB-INF，很好理解，
+ *       由于重定向就是让浏览器经过新的URL去访问服务器，因此不能访问WEB-INF下的文件。
+ */
+
