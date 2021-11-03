@@ -64,7 +64,7 @@ public class SpringmvcHandler {
      */
     @RequestMapping("/testView")
     public String testView(){
-        /*视图的作用是渲染模型数据，将模型里的数据以某种形式呈现给客户,同时实现转发或重定向。
+        /*视图的作用是渲染模型数据，将模型里的数据以某种形式呈现给客户。
         * 视图解析器的作用比较单一：将逻辑视图(视图名称)解析为一个具体的视图对象。
         */
         return "success";
@@ -72,8 +72,11 @@ public class SpringmvcHandler {
 
     /**
      * 测试重定向
-     * 在返回值前加上"redirect:"的字符串，就可以实现重定向
-     * 在返回值前加上"forward:"的字符串，就可以实现转发
+     * 1、在返回值前加上"redirect:"的字符串，就可以实现重定向
+     * 2、在返回值前加上"forward:"的字符串，就可以实现转发
+     * 3、一般情况下，控制器方法返回字符串类型的值会被当成逻辑视图名处理,如果返回的字符串中带 forward:
+     *      或 redirect: 前缀时，SpringMVC 会对他们进行特殊处理：将 forward: 和 redirect: 当成指示符，
+     *      其后的字符串作为 URL 来处理，（因此转发和重定向时，不经过视图解析器）
      */
     @RequestMapping("/testRedirectView")
     public String testRedirectView(){
