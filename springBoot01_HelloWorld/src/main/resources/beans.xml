@@ -13,3 +13,8 @@
         <property name="name" value="tomcat"></property>
     </bean>
 </beans>
+
+
+<!--
+    不使用SpringBoot框架时，采用xml配置文件的方式，配置组件，并注册到IOC容器
+ -->

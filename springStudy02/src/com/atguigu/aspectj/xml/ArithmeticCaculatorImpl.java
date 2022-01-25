@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
  */
 
 public class ArithmeticCaculatorImpl implements ArithmeticCaculator {
+
     @Override
     public int add(int i, int j) {
         return i+j;

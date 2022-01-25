@@ -12,8 +12,13 @@
     <packaging>jar</packaging>
 
     <!--
-        使用SpringBoot的功能，必须先引入SpringBoot的父项目，
-        也就是SpringBoot框架的基本依赖管理，实现自动版本仲裁机制，从而避免jar包版本冲突的问题
+    1.1、依赖管理
+        使用SpringBoot的功能，必须先引入SpringBoot的父项目，(每个springBoot的项目都必须引入)
+        作用是SpringBoot框架的基本依赖管理，实现自动版本仲裁机制，从而避免jar包版本冲突的问题
+        可以将spring-boot-starter-parent理解为SpringBoot版本和兼容的依赖的版本对照表
+        可见：spring-boot-starter-parent -> spring-boot-dependencies -> <properties>标签中
+            几乎声明了当前使用的SpringBoot版本(2.3.4.RELEASE)兼容的常用的依赖版本号,比如log4j、
+            mysql.....,因此在开发过程中引入依赖时不需要再写版本号。·
     -->
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -22,24 +27,49 @@
     </parent>
 
     <!--
+        如果本地安装的mysql版本和依赖管理的默认mysql版本不一致的时候需要自定义依赖版本号
         自定义依赖版本：
-        1、查看spring-boot-dependencies里面规定当前依赖的版本 用的 key。
-        2、在当前项目里面重写配置
+            ○ 查看spring-boot-dependencies里面规定当前依赖的版本 用的 key。
+            ○ 在当前项目里面重写配置
     -->
     <properties>
         <mysql.version>5.1.43</mysql.version>
     </properties>
 
-    <!-- 引用Web启动器：提供Web开发场景所需的底层所有依赖
-            starter：一组依赖的集合描述
-     -->
+
     <dependencies>
-        <!-- 引用Web启动器：提供Web开发场景所需的底层所有依赖
-            starter：一组依赖的集合描述
-        -->
+
+    <!--
+    1.2、自动配置
+         ● 使用starter批量引入依赖，starter：一组依赖的集合描述
+            依据依赖传递原则，引入starter依赖时，会同时引入start组件依赖的其他组件。
+            引用Web启动器：提供Web开发场景所需的底层所有依赖
+            注意：所有场景启动器点进去都能看到 <artifactId>spring-boot-starter</artifactId>,
+                这是SpringBoot自动配置的核心依赖，是所有场景启动器最底层的依赖
+         ● 自动配置:SpringBoot根据引入的依赖对功能组件进行自动配置
+           包括：
+             ○ 引入了tomcat依赖、自动配置tomcat
+             ○ 配置SpringMVC（引入MVC常用组件并自动配置）
+             ○ 配置好web常见功能：比如字符编码问题....
+             ○ 配置了默认的包结构：主程序所在的包及其所有子包，都能被扫描到，不需要单独配置。
+                支持自定义扫描路径：@SpringBootApplication(scanBasePackages="com.atguigu")或者@ComponentScan 指定扫描路径
+         ● 各种配置都拥有默认值
+            ○ 默认配置最终都是映射到某个类上，如：MultipartProperties
+            ○ 配置文件的值最终会绑定每个类上，这个类会在容器中创建对象
+         ● 按需加载所有自动配置项
+            ○ 非常多的starter
+            ○ SpringBoot所有的自动配置功能都在 spring-boot-autoconfigure 包里面
+            ○ 引入了哪些场景这个场景的自动配置才会生效
+    -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- 由于版本号依赖管理的控制机制，引入mysql的依赖后不设置版本，就是使用默认版本 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
         <!-- Spring Boot configuration annotation processor not found in classpath -->

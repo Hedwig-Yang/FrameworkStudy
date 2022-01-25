@@ -33,7 +33,12 @@ public class HelloController {
     @RequestMapping("/hello")
     public String handle01(){
         log.info("请求进来了");
-        return "Hello SpringBoot2";
+        try{
+            Thread.sleep(7000);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return "{\"Hello\":\"SpringBoot2\"}";
     }
 
     /**
