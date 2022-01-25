@@ -47,7 +47,7 @@
             注意：所有场景启动器点进去都能看到 <artifactId>spring-boot-starter</artifactId>,
                 这是SpringBoot自动配置的核心依赖，是所有场景启动器最底层的依赖
          ● 自动配置:SpringBoot根据引入的依赖对功能组件进行自动配置
-           包括：
+           以引用Web启动器为例，包括：
              ○ 引入了tomcat依赖、自动配置tomcat
              ○ 配置SpringMVC（引入MVC常用组件并自动配置）
              ○ 配置好web常见功能：比如字符编码问题....

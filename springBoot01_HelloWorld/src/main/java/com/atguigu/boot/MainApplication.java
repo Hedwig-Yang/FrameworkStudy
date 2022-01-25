@@ -53,7 +53,7 @@ import org.springframework.context.annotation.ComponentScan;
             ○ public @interface AutoConfigurationPackage {.....}
               使用@interface定义一个注释类
           ● @Import(AutoConfigurationImportSelector.class)
-            从META-INF/spring.factories位置来加载一个文件,给容器中批量导入一些需要自动加载的组件
+            从META-INF/spring.factories位置来加载一个文件,给容器中批量导入一些需要自动加载的（默认）组件
           ● public @interface EnableAutoConfiguration {......}
             使用@interface定义一个注释类
      3、@ComponentScan(com.atguigu.boot) : 定义包扫描路径，不配置的情况下默认在Application类的同文件夹下的所有文件及子文件夹

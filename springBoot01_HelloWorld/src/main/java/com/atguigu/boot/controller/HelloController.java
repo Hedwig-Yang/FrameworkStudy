@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * 课程：尚硅谷2021版最新SpringBoot2_权威教程
+ * url：https://www.bilibili.com/video/BV1Et411Y7tQ?p=131&spm_id_from=pageDriver
  * @Author:Z
  * @Data:2021/10/14 18:26
  * @Description: 接口

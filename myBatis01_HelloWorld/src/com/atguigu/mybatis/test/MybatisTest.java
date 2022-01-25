@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 课程：尚硅谷大数据 尚硅谷-第14阶段《mybatis》
  * @Author:KUN
  * @Data:2021/7/20 10:25
  * @Description: 测试Mybatis
