@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
+    <property name="LOG_HOME" value="F:/Java/IdeaProjects/tmp/kafka/kafkaLog" />
+    <!-- 日志输出路径: logging.path 在application.properties中配置，注意下面是 springProperty 不是 property -->
+    <!--<springProperty scope="context" name="LOG_HOME" source="logging.file.path"/>-->
+
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 按照每天生成日志文件 -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <FileNamePattern>${LOG_HOME}/kafkaApi.log.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <!--日志文件保留天数-->
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+        <!--日志文件最大的大小-->
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>10MB</MaxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+    <!-- 日志输出级别 -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>
+
+
+<!--
+    问题1：使用logback-spring.xml可以使用标签<springProperty>读取application配置信息，
+        但是由于引入包中包含logback.xml（默认优先加载），导致logback-spring.xml无法生效
+        解决办法：找到引入logback.xml的依赖，并将它排除在外。
+
+
+    问题2：将日志配置文件logback-spring.xml改名为logback.xml，由于logback.xml默认在application
+        配置文件加载前加载，因此无法使用<springProperty>读取配置文件信息
+        解决方法：硬编码
+
+    注意：
+        SpringMVC架构中使用logback日志框架加载日志配置文件步骤如下：
+            1、org.slf4j.impl.StaticLoggerBinder类的init(new ContextInitializer(defaultLoggerContext).autoConfig())方法
+            2、追踪到 ch.qos.logback.classic.util.ContextInitializer的autoConfig()方法实现配置文件装配
+            3、在classpath 中寻找 logback-test.xml文件;如果找不到logbck-test.xml, 则继续查找logback.groovy文件;
+               如果找不到 logback.groovy，则在 classpath 中寻找 logback.xml文件.
+            4、如果上述的文件都找不到，则 logback 会使用 JDK 的 SPI 机制查找 META-INF/services/ch.qos.logback.classic.spi.Configurator
+               中的 logback 配置实现类，这个实现类必须实现 Configuration 接口，使用它的实现来进行配置
+            5、如果上述操作都不成功，logback 就会使用它自带的 BasicConfigurator 来配置，并将日志输出到 console
+          综上：SpringMVC项目在加载logback配置文件的过程中, 只会加载logback-test.xml, logback.groovy以及logback.xml文件 ,其他命名文件则被忽略
+
+       在SpringBoot架构默认集成使用logback日志框架，加载日志配置文件步骤如下：
+       (springboot通过org.springframework.boot.logging.logback.LogbackLoggingSystem这个类在应用启动的时候解析logback配置文件)
+       1、在应用启动的时候，spring会调用org.springframework.boot.logging.AbstractLoggingSystem类的
+          initialize()方法对日志系统进行初始化。
+       2、initialize()内调用initializeWithConventions()方法从默认路径中寻找配置文件。
+       3、initializeWithConventions(.....){
+             //getSelfInitializationConfig()方法用于获得默认配置路径
+             getSelfInitializationConfig(.....){
+                  findConfig(getStandardConfigLocations());
+                  //findConfig方法则在classpath下按照这些文件名称逐个寻找，并返回找到的第一个配置文件。
+                  //当没有在classpath下找到默认配置文件，则寻找spring定制的配置文件，spring配置文件本质上是在默认配置文件名称
+                  //后加上-spring后缀并在classpath中进行检索、
+                  //getStandardConfigLocations()方法用于获取系统默认配置文件路径
+                  //包括："logback-test.groovy", "logback-test.xml", "logback.groovy","logback.xml"四种
+          }
+
+   综上：
+         Springboot加载配置文件的关键是启动过程中会先寻找默认地址下的默认名称的日志配置文件，找不到的情况下，
+     再去寻找spring定制的配置文件(在默认配置文件名称后加上-spring后缀);
+         这也就是为什么SpringBoot项目启动情况下logback-spring.xml配置生效，但是仅启动main()方法测试时，
+     不会按照SpringBoot的方式加载日志配置文件，而是按照SpringMVC的方式加载，所以这个时候logback-spring.xml
+     不生效(此时日志打印级别以及日志记录到文件都不生效)
+-->

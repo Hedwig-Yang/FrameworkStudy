@@ -12,21 +12,21 @@ public class ArithmeticCaculatorImpl implements ArithmeticCaculator {
     @Override
     public int add(int i, int j) {
 
-        return i+j;
+        return i + j;
     }
 
     @Override
     public int sub(int i, int j) {
-        return i-j;
+        return i - j;
     }
 
     @Override
     public int mul(int i, int j) {
-        return i*j;
+        return i * j;
     }
 
     @Override
     public int dvi(int i, int j) {
-        return i/j;
+        return i / j;
     }
 }

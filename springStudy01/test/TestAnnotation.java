@@ -16,9 +16,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class TestAnnotation {
 
     @Test
-    public void test1(){
+    public void test1() {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-annotation.xml");
-        UserController uc = ctx.getBean("userController",UserController.class);
+        UserController uc = ctx.getBean("userController", UserController.class);
         System.out.println(uc);
 
         UserService us = ctx.getBean("userServiceImpl", UserServiceImpl.class);
@@ -30,9 +30,9 @@ public class TestAnnotation {
     }
 
     @Test
-    public void test2(){
+    public void test2() {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-annotation.xml");
-        UserController uc = ctx.getBean("userController",UserController.class);
+        UserController uc = ctx.getBean("userController", UserController.class);
         uc.regist();
     }
 }

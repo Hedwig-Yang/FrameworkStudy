@@ -1,0 +1,5 @@
+#日志文件存放路径配置
+logging:
+  file:
+    path: F:/Java/IdeaProjects/tmp/kafka/kafkaLog
+

@@ -7,7 +7,7 @@ package com.atguigu.springpractice1.helloWorld;
  * @Version:1.0
  */
 public class Person {
-    private  String name;
+    private String name;
 
     @Override
     public String toString() {
@@ -24,7 +24,7 @@ public class Person {
         this.name = name;
     }
 
-    public void sayHello(){
-        System.out.println("My name is "+name);
+    public void sayHello() {
+        System.out.println("My name is " + name);
     }
 }

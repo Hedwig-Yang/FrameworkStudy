@@ -1,0 +1,10 @@
+# Spring配置
+spring:
+  # 资源信息
+  profiles:
+    active: dev
+
+#日志相关
+logging:
+  config:
+    classpath: logback-spring.xml

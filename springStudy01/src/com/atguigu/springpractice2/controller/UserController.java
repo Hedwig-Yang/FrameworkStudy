@@ -16,7 +16,7 @@ public class UserController {
     private UserService userService;
     //private static UserService userService;  无法在编译时注入
 
-    public void regist(){
+    public void regist() {
         userService.handleAddUser();
     }
 

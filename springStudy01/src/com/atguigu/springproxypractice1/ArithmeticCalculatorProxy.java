@@ -18,47 +18,46 @@ public class ArithmeticCalculatorProxy {
     private ArithmeticCaculator target;
 
     //构造器使用目标对象作为参数创建代理对象生产类对象
-    public  ArithmeticCalculatorProxy(ArithmeticCaculator target){
+    public ArithmeticCalculatorProxy(ArithmeticCaculator target) {
         this.target = target;
     }
 
     //获取代理对象
-    public Object getProxy(){
+    public Object getProxy() {
         //1、类加载器对象用于动态生成的代理类的加载
         ClassLoader loader = target.getClass().getClassLoader();
         //2、提供目标对象实现的所有接口，使代理对象能实现（拥有）目标对象实现的所有方法（功能）
         Class<?>[] interfaces = target.getClass().getInterfaces();
         //3、InvokationHandaler接口的对象，用于代理功能的实现,也就是创建代理方法（invoke方法）
-        class MyInvocationHandler implements InvocationHandler{
+        class MyInvocationHandler implements InvocationHandler {
             //proxy：代理对象，在invoke方法中一般不使用；method：正在被调用的方法；args：正在被调用的方法参数
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                 //获取方法名字
                 String methodName = method.getName();
                 //记录日志
-                System.out.println("LoggingProxy==> The method "+methodName+" begin with "+ Arrays.asList(args) );
+                System.out.println("LoggingProxy==> The method " + methodName + " begin with " + Arrays.asList(args));
                 //将方法调用转回目标对象
                 Object result = method.invoke(target, args);
                 //记录日志
-                System.out.println("LoggingProxy==> The method "+methodName+" end with "+ result );
+                System.out.println("LoggingProxy==> The method " + methodName + " end with " + result);
                 return result;
             }
         }
         InvocationHandler h = new MyInvocationHandler();
         //创建代理对象
-        Object proxy = Proxy.newProxyInstance(loader,interfaces,h);
+        Object proxy = Proxy.newProxyInstance(loader, interfaces, h);
         //返回代理对象
         return proxy;
     }
 }
 
 /**
- * @description:模拟底层生成的代理类(仅供理解，不参与程序运行),代理对象一定继承了Proxy对象,
- * 同时实现了目标对象的接口,通过Proxy.newProxyInstance(loader,interfaces,h);方法生成代理对象，基本如下
+ * @description:模拟底层生成的代理类(仅供理解，不参与程序运行),代理对象一定继承了Proxy对象, 同时实现了目标对象的接口, 通过Proxy.newProxyInstance(loader, interfaces, h);方法生成代理对象，基本如下
  * @author: KUN
  * @date: 2021/4/19 10:41
  */
-class $Proxy0 extends Proxy implements ArithmeticCaculator{
+class $Proxy0 extends Proxy implements ArithmeticCaculator {
 
     //只有有参构造，因此必须提供InvocationHandler类的对象才能创建代理类对象
     protected $Proxy0(InvocationHandler h) {
@@ -68,14 +67,14 @@ class $Proxy0 extends Proxy implements ArithmeticCaculator{
 
     @Override
     public int add(int i, int j) {
-        Object[] args = {i,j};
+        Object[] args = {i, j};
         int result = 0;
         try {
             //表面上调用代理类的add方法，实际上使用的时传入父类的InvocationHandler对象h的invoke方法
             //传入参数：1、代理对象 2、接口的当前方法对象 3、参数数组
             Class<?>[] interfaces = this.getClass().getInterfaces();
-            Method interfaceAdd = interfaces[0].getMethod("add",int.class,int.class);
-            result = (int)super.h.invoke(this,interfaceAdd,args);
+            Method interfaceAdd = interfaces[0].getMethod("add", int.class, int.class);
+            result = (int) super.h.invoke(this, interfaceAdd, args);
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }

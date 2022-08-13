@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 课程：尚硅谷2021版最新SpringBoot2_权威教程
- * url：https://www.bilibili.com/video/BV1Et411Y7tQ?p=131&spm_id_from=pageDriver
+ * 课程url：https://www.bilibili.com/video/BV1Et411Y7tQ?p=131&spm_id_from=pageDriver
+ * 代码url：https://gitee.com/leifengyang/springboot2/blob/master/boot-05-web-admin/src/main/resources/templates/login.html
+ * 课件url：https://www.yuque.com/atguigu/springboot/qb7hy2#B9J3u
  * @Author:Z
  * @Data:2021/10/14 18:26
  * @Description: 接口

@@ -14,7 +14,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class TestSpring {
 
     @Test
-    public void test1(){
+    public void test1() {
         //1、创建IOC容器对象
         ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 

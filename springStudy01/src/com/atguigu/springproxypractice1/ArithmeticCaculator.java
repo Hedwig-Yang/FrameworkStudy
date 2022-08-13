@@ -8,12 +8,12 @@ package com.atguigu.springproxypractice1;
  */
 public interface ArithmeticCaculator {
 
-    public int add(int i,int j);
+    public int add(int i, int j);
 
-    public int sub(int i,int j);
+    public int sub(int i, int j);
 
-    public int mul(int i,int j);
+    public int mul(int i, int j);
 
-    public int dvi(int i,int j);
+    public int dvi(int i, int j);
 
 }
