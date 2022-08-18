@@ -7,4 +7,4 @@ spring:
 #日志相关
 logging:
   config:
-    classpath: logback-spring.xml
+    classpath: logback.xml

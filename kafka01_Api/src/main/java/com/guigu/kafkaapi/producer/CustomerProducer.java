@@ -2,12 +2,13 @@ package com.guigu.kafkaapi.producer;
 
 import org.apache.kafka.clients.producer.*;
 
+import java.util.ArrayList;
 import java.util.Properties;
 
 /**
  * @Author:Z
  * @Date:2022/8/11 14:40
- * @Description: 创建生产者（新API）
+ * @Description: 创建生产者（新API）:1、发送消息时，使用回调函数；2、绑定自定义分区
  * @Version:1.0
  */
 public class CustomerProducer {
@@ -33,10 +34,15 @@ public class CustomerProducer {
         properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         //建立关联，设置自定义分区
         properties.put("partitioner.calss","com.guigu.kafkaapi.producer.CustomPartitionProducer");
+        //关联拦截器（注意：拦截器添加顺序就是拦截器执行顺序）
+        ArrayList<String> reference = new ArrayList<>();
+        reference.add("com.guigu.kafkaapi.interceptor.TimeInterceptor");
+        reference.add("com.guigu.kafkaapi.interceptor.CountInterceptor");
+        properties.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG, reference);
 
 
         Producer<String, String> producer = new KafkaProducer<>(properties);
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 10; i++) {
             //producer.send(new ProducerRecord<String, String>("first", Integer.toString(i), "hello world-" + i));
             //发送结束后会调用回调函数，ProducerRecord：发送给Kafka Broker的key/value值对
             producer.send(new ProducerRecord<>("first", Integer.toString(i)), (recordMetadata, exception) -> {

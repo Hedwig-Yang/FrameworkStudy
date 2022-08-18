@@ -81,5 +81,5 @@
      再去寻找spring定制的配置文件(在默认配置文件名称后加上-spring后缀);
          这也就是为什么SpringBoot项目启动情况下logback-spring.xml配置生效，但是仅启动main()方法测试时，
      不会按照SpringBoot的方式加载日志配置文件，而是按照SpringMVC的方式加载，所以这个时候logback-spring.xml
-     不生效(此时日志打印级别以及日志记录到文件都不生效)
+     不生效(此时日志打印级别以及日志记录到文件都不生效)，但是使用logback.xml是生效的。
 -->
