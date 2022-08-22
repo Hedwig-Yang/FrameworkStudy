@@ -63,7 +63,9 @@ public class CustomerConsumer {
         consumer.seek(new TopicPartition("first",0),2);*/
 
         while(true){
-            //获取数据,传入参数拉去时间间隔，返回ConsumerRecords：从kafka接收的键/值对
+            //获取数据,传入参数拉取时间间隔，返回ConsumerRecords：从kafka接收的键/值对
+            //如果拉到数据的话会立即放回；如果拉不到数据的话，这个是最长的等待时间；
+            //比如100ms，如果一直没有数据的话，到100ms就返回，有数据就立即返回再拉
             ConsumerRecords<String, String> consumerRecords = consumer.poll(100);
             for(ConsumerRecord<String, String> consumerRecord : consumerRecords){
                 logger.info("消费主题：" + consumerRecord.topic() + "--"
