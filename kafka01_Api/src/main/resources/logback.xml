@@ -26,9 +26,9 @@
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
         </encoder>
         <!--日志文件最大的大小-->
-        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+        <!--<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
             <MaxFileSize>10MB</MaxFileSize>
-        </triggeringPolicy>
+        </triggeringPolicy>-->
     </appender>
 
     <!-- 日志输出级别 -->
@@ -75,6 +75,11 @@
                   //getStandardConfigLocations()方法用于获取系统默认配置文件路径
                   //包括："logback-test.groovy", "logback-test.xml", "logback.groovy","logback.xml"四种
           }
+
+      使用SizeBasedTriggeringPolicy和TimeBasedRollingPolicy出现日志无法按天分割的问题
+      原因是：SizeBasedTriggeringPolicy和TimeBasedRollingPolicy两种分割策略不能同时使用，同时使用时TimeBasedRollingPolicy
+             失效，如果想同时使用按天分割日志和按大小分割日志，选择组合策略：SizeAndTimeBasedRollingPolicy。具体参考链接：
+             http://www.ibloger.net/article/3199.html
 
    综上：
          Springboot加载配置文件的关键是启动过程中会先寻找默认地址下的默认名称的日志配置文件，找不到的情况下，
